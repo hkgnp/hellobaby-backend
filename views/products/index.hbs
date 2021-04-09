@@ -1,0 +1,86 @@
+{{#extends 'base'}}
+
+{{#block 'title'}} Our Posters {{/block}}
+
+{{#block 'content'}}
+<form method="GET">
+  <a
+    class="btn btn-info mb-3 btn-sm"
+    data-toggle="collapse"
+    href="#collapseExample"
+    role="button"
+    aria-expanded="false"
+    aria-controls="collapseExample"
+  >
+    Search and Filter
+  </a>
+
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body bg-dark text-light">
+      {{{form}}}
+      <input type="submit" class="btn btn-primary btn-sm mb-3" />
+    </div>
+  </div>
+</form>
+
+<div class="table-responsive table-dark">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Preview</th>
+        <th>Title</th>
+        <th>Cost (in cents)</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Stock</th>
+        <th>Height</th>
+        <th>Width</th>
+        <th>Category</th>
+        <th>Tags</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
+      <tr>
+        <td>
+          {{#if this.img_url}}
+          <img class="img-fluid" src="{{ this.img_url }}" />
+          {{/if}}
+        </td>
+        <td>{{ this.title }}</td>
+        <td>{{ this.cost }}</td>
+        <td>{{ this.description }}</td>
+        <td>{{ dateFormat this.date format='DD-MM-YYYY' }}</td>
+        <td>{{ this.stock }}</td>
+        <td>{{ this.height }}</td>
+        <td>{{ this.width }}</td>
+        <td>{{ this.category.name }}</td>
+        <td>
+          {{#each this.tags}}
+          <span class="badge badge-pill badge-info">{{ this.name }}</span>
+          {{/each}}
+        </td>
+        <td>
+          <a
+            href="/products/{{ this.id }}/update"
+            class="btn btn-primary btn-sm"
+            >Update</a
+          ><a
+            href="/products/{{ this.id }}/delete"
+            class="btn btn-danger ml-2 btn-sm"
+            >Delete</a
+          >
+          <a
+            href="/cart/{{ this.id }}/add"
+            class="btn btn-primary ml-2 btn-sm"
+            >Add to Cart</a
+          >
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+{{/block}}
+{{/extends}}

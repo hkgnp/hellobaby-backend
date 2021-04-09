@@ -1,0 +1,32 @@
+{{#extends 'base'}}
+{{#block 'title'}} Your Shopping Cart {{/block}}
+{{#block 'content'}}
+<h1>My Shopping Cart</h1>
+
+<ul class="list-group">
+    {{#each allItems}}
+    <li class="list-group-item list-group-item-success">
+        <div class="d-flex">
+            <div><img src="{{this.products.img_url}}" alt="poster" class="mr-4"/></div>
+            <div>
+                <h4>{{this.products.title}}</h3>
+                    <h5>Cost: {{this.products.cost}} </h5>
+                    <form method="POST" action="/cart/{{this.products.id}}/quantity/update">
+                        <input type="hidden" name="_csrf" value="{{../csrfToken}}"/>
+                            <h5>Quantity: <input type="text" style="width:40px" name="quantity" value="{{this.quantity}}">
+                        <input type="submit" class="btn btn-info btn-sm" value="Update Quantity"/></h5>
+                    </form>
+            </div>
+
+    </div>
+        <a href="/cart/{{this.products.id}}/remove" class="btn btn-danger btn-sm">Del</a> 
+    </li>
+    {{/each}}
+</ul>
+
+<div>
+    <a href="/checkout" class="btn btn-warning mb-3 mt-3">Checkout Now</a>
+</div>
+
+{{/block}}
+{{/extends}}

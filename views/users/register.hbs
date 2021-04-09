@@ -1,0 +1,13 @@
+{{#extends 'base'}}
+
+{{#block 'title'}} Register {{/block}}
+
+{{#block 'content'}}
+<h1>Register a User</h1>
+<form method="POST" class="form-dark">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+    {{{form}}}
+    <input type="submit" class="btn btn-warning" value="Register User" />
+</form>
+{{/block}}
+{{/extends}}
