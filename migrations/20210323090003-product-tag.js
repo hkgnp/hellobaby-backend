@@ -19,7 +19,7 @@ exports.up = function (db) {
     id: { type: 'int', primaryKey: true, autoIncrement: true },
     product_id: {
       type: 'int',
-      notNull: true,
+      unsigned: true,
       foreignKey: {
         name: 'product_tag_fk',
         table: 'products',

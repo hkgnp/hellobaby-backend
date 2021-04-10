@@ -25,7 +25,7 @@ exports.up = function (db) {
     quantity: { type: 'int', unsigned: true },
     product_id: {
       type: 'int',
-      notNull: true,
+      unsigned: true,
       foreignKey: {
         name: 'cart_items_products_fk',
         table: 'products',
