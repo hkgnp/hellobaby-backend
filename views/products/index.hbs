@@ -28,13 +28,15 @@
     <thead>
       <tr>
         <th>Preview</th>
-        <th>Title</th>
-        <th>Cost (in cents)</th>
+        <th>Date Added</th>
+        <th>Name</th>
         <th>Description</th>
-        <th>Date</th>
+        <th>Cost (in cents)</th>
+        <th>Company</th>
+        <th>Size</th>
         <th>Stock</th>
-        <th>Height</th>
-        <th>Width</th>
+        <th>Local</th>
+        <th>Organic/ Natural</th>
         <th>Category</th>
         <th>Tags</th>
         <th>Actions</th>
@@ -48,13 +50,15 @@
           <img class="img-fluid" src="{{ this.img_url }}" />
           {{/if}}
         </td>
-        <td>{{ this.title }}</td>
-        <td>{{ this.cost }}</td>
+        <td>{{ dateFormat this.date_added format='DD-MM-YYYY' }}</td>
+        <td>{{ this.name }}</td>
         <td>{{ this.description }}</td>
-        <td>{{ dateFormat this.date format='DD-MM-YYYY' }}</td>
+        <td>{{ this.cost }}</td>
+        <td>{{ this.company }}</td>
+        <td>{{ this.size }}</td>
         <td>{{ this.stock }}</td>
-        <td>{{ this.height }}</td>
-        <td>{{ this.width }}</td>
+        <td>{{ this.local }}</td>
+        <td>{{ this.organic_natural }}</td>
         <td>{{ this.category.name }}</td>
         <td>
           {{#each this.tags}}
@@ -71,9 +75,7 @@
             class="btn btn-danger ml-2 btn-sm"
             >Delete</a
           >
-          <a
-            href="/cart/{{ this.id }}/add"
-            class="btn btn-primary ml-2 btn-sm"
+          <a href="/cart/{{ this.id }}/add" class="btn btn-primary ml-2 btn-sm"
             >Add to Cart</a
           >
         </td>

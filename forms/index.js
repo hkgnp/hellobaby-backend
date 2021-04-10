@@ -31,7 +31,22 @@ const bootstrapField = function (name, object) {
 
 const createProductForm = (categories, tags) => {
   return forms.create({
-    title: fields.string({
+    date: fields.date({
+      required: true,
+      errorAfterField: true,
+      cssClass: {
+        label: ['form-label'],
+      },
+      widget: widgets.date(),
+    }),
+    name: fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClass: {
+        label: ['form-label'],
+      },
+    }),
+    description: fields.string({
       required: true,
       errorAfterField: true,
       cssClass: {
@@ -46,20 +61,19 @@ const createProductForm = (categories, tags) => {
       },
       validators: [validators.integer()],
     }),
-    description: fields.string({
+    company: fields.string({
       required: true,
       errorAfterField: true,
       cssClass: {
         label: ['form-label'],
       },
     }),
-    date: fields.date({
+    size: fields.string({
       required: true,
       errorAfterField: true,
       cssClass: {
         label: ['form-label'],
       },
-      widget: widgets.date(),
     }),
     stock: fields.string({
       required: true,
@@ -68,18 +82,20 @@ const createProductForm = (categories, tags) => {
         label: ['form-label'],
       },
     }),
-    height: fields.string({
+    local: fields.boolean({
       required: true,
       errorAfterField: true,
       cssClass: {
-        label: ['form-label'],
+        input: ['form-check-input'],
+        label: ['control-label col col-lg-3'],
       },
     }),
-    width: fields.string({
+    organic_natural: fields.boolean({
       required: true,
       errorAfterField: true,
       cssClass: {
-        label: ['form-label'],
+        input: ['form-check-input'],
+        label: ['form-check-label'],
       },
     }),
     category_id: fields.string({
@@ -111,7 +127,22 @@ const createProductForm = (categories, tags) => {
 
 const createProductSearchForm = (categories, tags) => {
   return forms.create({
-    title: fields.string({
+    date: fields.date({
+      required: false,
+      errorAfterField: true,
+      cssClass: {
+        label: ['form-label'],
+      },
+      widget: widgets.date(),
+    }),
+    name: fields.string({
+      required: false,
+      errorAfterField: true,
+      cssClass: {
+        label: ['form-label'],
+      },
+    }),
+    description: fields.string({
       required: false,
       errorAfterField: true,
       cssClass: {
@@ -134,20 +165,19 @@ const createProductSearchForm = (categories, tags) => {
       },
       validators: [validators.integer()],
     }),
-    description: fields.string({
+    company: fields.string({
       required: false,
       errorAfterField: true,
       cssClass: {
         label: ['form-label'],
       },
     }),
-    date: fields.date({
+    description: fields.string({
       required: false,
       errorAfterField: true,
       cssClass: {
         label: ['form-label'],
       },
-      widget: widgets.date(),
     }),
     min_stock: fields.string({
       required: false,
@@ -163,14 +193,14 @@ const createProductSearchForm = (categories, tags) => {
         label: ['form-label'],
       },
     }),
-    height: fields.string({
+    local: fields.string({
       required: false,
       errorAfterField: true,
       cssClass: {
         label: ['form-label'],
       },
     }),
-    width: fields.string({
+    organic_natural: fields.string({
       required: false,
       errorAfterField: true,
       cssClass: {
