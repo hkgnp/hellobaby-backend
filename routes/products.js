@@ -9,6 +9,7 @@ const {
   createProductForm,
   createProductSearchForm,
   bootstrapField,
+  addCategoryAddTags,
 } = require('../forms');
 
 // import middleware protection
@@ -281,7 +282,7 @@ router.get('/:product_id/delete', async (req, res) => {
     req.params.product_id
   );
 
-  res.render('products/delete.hbs', {
+  res.render('products/delete', {
     product: productToDelete.toJSON(),
   });
 });
@@ -295,6 +296,14 @@ router.post('/:product_id/delete', async (req, res) => {
 
   req.flash('success_messages', 'Product has been deleted successfully');
   res.redirect('/products');
+});
+
+router.get('/addcategorytags', (req, res) => {
+  const form = addCategoryAddTags();
+
+  res.render('products/addcategorytags', {
+    form: form.toHTML(bootstrapField),
+  });
 });
 
 module.exports = router;

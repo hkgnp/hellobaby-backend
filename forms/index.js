@@ -304,6 +304,25 @@ const userProfile = () => {
   });
 };
 
+const addCategoryAddTags = () => {
+  return forms.create({
+    category: fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClass: {
+        label: ['form-label'],
+      },
+    }),
+    tags: fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClass: {
+        label: ['form-label'],
+      },
+      validators: [validators.email()],
+    }),
+  });
+};
 module.exports = {
   bootstrapField,
   createProductForm,
@@ -311,4 +330,5 @@ module.exports = {
   createUserForm,
   loginUserForm,
   userProfile,
+  addCategoryAddTags,
 };

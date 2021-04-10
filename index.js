@@ -4,16 +4,9 @@ const moment = require('moment');
 const wax = require('wax-on');
 require('dotenv').config();
 const cors = require('cors');
-const landingRoutes = require('./routes/landing');
-const corporateRoutes = require('./routes/corporate');
-const productsRoutes = require('./routes/products');
-const userRoutes = require('./routes/users');
 const session = require('express-session');
 const flash = require('connect-flash');
 const csurf = require('csurf');
-const cloudinaryRoutes = require('./routes/cloudinary');
-const shoppingCartRoutes = require('./routes/shoppingCart');
-const checkoutRoutes = require('./routes/checkout');
 
 // create an instance of express app
 let app = express();
@@ -115,6 +108,14 @@ const api = {
   products: require('./routes/api/products'),
   users: require('./routes/api/users'),
 };
+
+const landingRoutes = require('./routes/landing');
+const corporateRoutes = require('./routes/corporate');
+const productsRoutes = require('./routes/products');
+const userRoutes = require('./routes/users');
+const cloudinaryRoutes = require('./routes/cloudinary');
+const shoppingCartRoutes = require('./routes/shoppingCart');
+const checkoutRoutes = require('./routes/checkout');
 
 const main = async () => {
   app.use('/', landingRoutes);
