@@ -21,6 +21,13 @@ const getAllTags = async () => {
   return allTags;
 };
 
+const getYesNo = () => {
+  return [
+    [1, 'Yes'],
+    [2, 'No'],
+  ];
+};
+
 const getProductById = async (productId) => {
   const product = await Product.where({
     id: productId,
@@ -34,6 +41,7 @@ const getProductById = async (productId) => {
 module.exports = {
   getAllCategories,
   getAllTags,
+  getYesNo,
   getProductById,
   getAllProducts,
 };

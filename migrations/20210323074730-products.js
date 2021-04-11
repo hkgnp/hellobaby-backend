@@ -23,9 +23,9 @@ exports.up = function (db) {
     company: { type: 'string', length: 100 },
     size: { type: 'string', length: 100 },
     stock: { type: 'int' },
-    local: { type: 'boolean' },
-    organic_natural: { type: 'boolean' },
-    free_delivery: { type: 'boolean' },
+    local: { type: 'string', length: 5 },
+    organic_natural: { type: 'string', length: 5 },
+    free_delivery: { type: 'string', length: 5 },
   });
 };
 

@@ -137,7 +137,9 @@ router.get('/create', async (req, res) => {
 
   const allTags = await getProductDataLayer.getAllTags();
 
-  const productForm = createProductForm(allCategories, allTags);
+  const yesNo = getProductDataLayer.getYesNo();
+
+  const productForm = createProductForm(allCategories, allTags, yesNo);
 
   res.render('products/create', {
     form: productForm.toHTML(bootstrapField),
@@ -152,12 +154,14 @@ router.post('/create', async (req, res) => {
 
   const allTags = await getProductDataLayer.getAllTags();
 
-  const productForm = createProductForm(allCategories, allTags);
+  const yesNo = await getProductDataLayer.getYesNo();
+
+  const productForm = createProductForm(allCategories, allTags, yesNo);
 
   productForm.handle(req, {
     success: async (form) => {
       let { tags, ...productData } = form.data;
-
+      console.log(form.data);
       // Use the product moodel to save a new instance of Product
       const newProduct = new Product();
       newProduct.set(productData);
@@ -206,18 +210,39 @@ router.get('/:product_id/update', async (req, res) => {
   // Option 2
   const selectedTags = productToEdit.toJSON().tags.map((t) => t.id);
 
-  const form = createProductForm(allCategories, allTags);
-  form.fields.title.value = productToEdit.get('title');
-  form.fields.cost.value = productToEdit.get('cost');
-  form.fields.description.value = productToEdit.get('description');
-  form.fields.date.value = productToEdit.get('date');
-  form.fields.stock.value = productToEdit.get('stock');
-  form.fields.height.value = productToEdit.get('height');
-  form.fields.width.value = productToEdit.get('width');
-  form.fields.category_id.value = productToEdit.get('category_id');
+  const yesNo = await getProductDataLayer.getYesNo();
+
+  const form = createProductForm(allCategories, allTags, yesNo);
+  const {
+    date_added,
+    name,
+    description,
+    cost,
+    company,
+    size,
+    stock,
+    local,
+    organic_natural,
+    free_delivery,
+    category_id,
+    tags,
+  } = form.fields;
+
+  date_added.value = productToEdit.get('date_added');
+  name.value = productToEdit.get('name');
+  description.value = productToEdit.get('description');
+  cost.value = productToEdit.get('cost');
+  company.value = productToEdit.get('company');
+  size.value = productToEdit.get('size');
+  stock.value = productToEdit.get('stock');
+  local.value = productToEdit.get('local');
+  organic_natural.value = productToEdit.get('organic_natural');
+  free_delivery.value = productToEdit.get('free_delivery');
+  category_id.value = productToEdit.get('category_id');
+
   // Set selected tags to the form to be displayed
-  form.fields.tags.value = selectedTags;
-  form.fields.img_url.value = productToEdit.get('img_url');
+  tags.value = selectedTags;
+  // form.fields.img_url.value = productToEdit.get('img_url');
 
   res.render('products/update', {
     form: form.toHTML(bootstrapField),
@@ -318,22 +343,31 @@ router.post('/addcategorytags', (req, res) => {
         let newCategory = new Category();
         newCategory.set('category_name', category_name);
         await newCategory.save();
+
+        req.flash('success_messages', 'Category / Tag has been added');
+        res.redirect('/products/create');
       }
 
       if (tag_name) {
         const newTag = new Tag();
         newTag.set('tag_name', tag_name);
         await newTag.save();
+
+        req.flash('success_messages', 'Category / Tag has been added');
+        res.redirect('/products/create');
       }
 
-      // if (category_name && tag_name) {
-
-      // }
+      if (!category_name || !tag_name) {
+        req.flash('error_messages', 'Please enter a category or tag.');
+        res.redirect('/products/addcategorytags');
+      }
+    },
+    error: (form) => {
+      res.render('products/addcategorytags', {
+        form: form.toHTML(bootstrapField),
+      });
     },
   });
-
-  req.flash('success_messages', 'Category / Tag has been added');
-  res.redirect('/products/create');
 });
 
 module.exports = router;

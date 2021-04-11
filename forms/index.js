@@ -5,36 +5,64 @@ const fields = forms.fields;
 const validators = forms.validators;
 const widgets = forms.widgets;
 
-const bootstrapField = function (name, object) {
+// const bootstrapField = function (name, object) {
+//   if (!Array.isArray(object.widget.classes)) {
+//     object.widget.classes = [];
+//   }
+
+//   if (object.widget.classes.indexOf('form-control') === -1) {
+//     object.widget.classes.push('form-control');
+//   }
+
+//   let validationclass = object.value && !object.error ? 'is-valid' : '';
+//   validationclass = object.error ? 'is-invalid' : validationclass;
+//   if (validationclass) {
+//     object.widget.classes.push(validationclass);
+//   }
+
+//   let label = object.labelHTML(name);
+//   let error = object.error
+//     ? '<div class="invalid-feedback">' + object.error + '</div>'
+//     : '';
+
+//   let widget = object.widget.toHTML(name, object);
+//   return '<div class="form-group">' + label + widget + error + '</div>';
+// };
+
+const bootstrapField = (name, object) => {
   if (!Array.isArray(object.widget.classes)) {
     object.widget.classes = [];
   }
-
   if (object.widget.classes.indexOf('form-control') === -1) {
     object.widget.classes.push('form-control');
   }
 
-  let validationclass = object.value && !object.error ? 'is-valid' : '';
-  validationclass = object.error ? 'is-invalid' : validationclass;
-  if (validationclass) {
-    object.widget.classes.push(validationclass);
-  }
-
   let label = object.labelHTML(name);
   let error = object.error
-    ? '<div class="invalid-feedback">' + object.error + '</div>'
+    ? '<div class="alert alert-error help-block">' + object.error + '</div>'
     : '';
 
+  let validationclass = object.value && !object.error ? 'has-success' : '';
+  validationclass = object.error ? 'has-error' : validationclass;
+
   let widget = object.widget.toHTML(name, object);
-  return '<div class="form-group">' + label + widget + error + '</div>';
+  return (
+    '<div class="form-group' +
+    validationclass +
+    '">' +
+    label +
+    widget +
+    error +
+    '</div>'
+  );
 };
 
-const createProductForm = (categories, tags) => {
+const createProductForm = (categories, tags, yesNo) => {
   return forms.create({
-    date: fields.date({
+    date_added: fields.date({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       widget: widgets.date(),
@@ -42,21 +70,22 @@ const createProductForm = (categories, tags) => {
     name: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     description: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
+      widget: widgets.textarea(),
     }),
     cost: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       validators: [validators.integer()],
@@ -64,45 +93,58 @@ const createProductForm = (categories, tags) => {
     company: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     size: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     stock: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     local: fields.boolean({
       required: true,
       errorAfterField: true,
-      cssClass: {
-        input: ['form-check-input'],
-        label: ['control-label col col-lg-3'],
+      cssClasses: {
+        label: ['form-label'],
       },
+      widget: widgets.select(),
+      choices: yesNo,
     }),
-    organic_natural: fields.boolean({
+    organic_natural: fields.string({
+      label: 'Organic / Natural',
       required: true,
       errorAfterField: true,
-      cssClass: {
-        input: ['form-check-input'],
-        label: ['form-check-label'],
+      cssClasses: {
+        label: ['form-label'],
       },
+      widget: widgets.select(),
+      choices: yesNo,
+    }),
+    free_delivery: fields.string({
+      label: 'Free Delivery',
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label'],
+      },
+      widget: widgets.select(),
+      choices: yesNo,
     }),
     category_id: fields.string({
       label: 'Category',
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       widget: widgets.select(),
@@ -111,19 +153,19 @@ const createProductForm = (categories, tags) => {
     tags: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       widget: widgets.multipleSelect(),
       choices: tags,
     }),
     img_url: fields.string({
-      required: true,
+      required: false,
       errorAfterField: true,
       widget: widgets.hidden(),
     }),
     thumbnail_url: fields.string({
-      required: true,
+      required: false,
       errorAfterField: true,
       widget: widgets.hidden(),
     }),
@@ -135,7 +177,7 @@ const createProductSearchForm = (categories, tags) => {
     date: fields.date({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       widget: widgets.date(),
@@ -143,21 +185,21 @@ const createProductSearchForm = (categories, tags) => {
     name: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     description: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     min_cost: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       validators: [validators.integer()],
@@ -165,7 +207,7 @@ const createProductSearchForm = (categories, tags) => {
     max_cost: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       validators: [validators.integer()],
@@ -173,42 +215,42 @@ const createProductSearchForm = (categories, tags) => {
     company: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     description: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     min_stock: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     max_stock: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     local: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     organic_natural: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
@@ -216,7 +258,7 @@ const createProductSearchForm = (categories, tags) => {
       label: 'Category',
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       widget: widgets.select(),
@@ -225,7 +267,7 @@ const createProductSearchForm = (categories, tags) => {
     tags: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       widget: widgets.multipleSelect(),
@@ -239,14 +281,14 @@ const createUserForm = () => {
     username: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     email: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       validators: [validators.email()],
@@ -254,14 +296,14 @@ const createUserForm = () => {
     password: fields.password({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     confirm_password: fields.password({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       validators: [validators.matchField('password')],
@@ -274,7 +316,7 @@ const loginUserForm = () => {
     email: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       validators: [validators.email()],
@@ -282,7 +324,7 @@ const loginUserForm = () => {
     password: fields.password({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
@@ -294,14 +336,14 @@ const userProfile = () => {
     username: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     email: fields.string({
       required: true,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
       validators: [validators.email()],
@@ -314,14 +356,14 @@ const addCategoryAddTags = () => {
     category_name: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),
     tag_name: fields.string({
       required: false,
       errorAfterField: true,
-      cssClass: {
+      cssClasses: {
         label: ['form-label'],
       },
     }),

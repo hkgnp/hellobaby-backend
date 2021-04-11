@@ -37,6 +37,7 @@
         <th>Stock</th>
         <th>Local</th>
         <th>Organic/ Natural</th>
+        <th>Free Delivery</th>
         <th>Category</th>
         <th>Tags</th>
         <th>Actions</th>
@@ -59,10 +60,11 @@
         <td>{{ this.stock }}</td>
         <td>{{ this.local }}</td>
         <td>{{ this.organic_natural }}</td>
-        <td>{{ this.category.name }}</td>
+        <td>{{ this.free_delivery}}</td>
+        <td>{{ this.category.category_name }}</td>
         <td>
           {{#each this.tags}}
-          <span class="badge badge-pill badge-info">{{ this.name }}</span>
+          <span class="badge badge-pill badge-info">{{ this.tag_name }}</span>
           {{/each}}
         </td>
         <td>
