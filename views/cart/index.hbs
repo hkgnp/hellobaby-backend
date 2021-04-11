@@ -24,9 +24,13 @@
     {{/each}}
 </ul>
 
+{{#if this.products}}
 <div>
-    <a href="/checkout" class="btn btn-warning mb-3 mt-3">Checkout Now</a>
+    <a href="/checkout" class="btn btn-sm btn-warning mb-3 mt-3">Checkout Now</a>
 </div>
+{{else}}
+<div>Your shopping cart is empty.</div>
+{{/if}}
 
 {{/block}}
 {{/extends}}
