@@ -24,23 +24,23 @@
 </form>
 
 <div class="table-responsive table-dark">
-  <table class="table">
+  <table data-toggle="table" class="table">
     <thead>
       <tr>
         <th>Preview</th>
-        <th>Date Added</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Cost (in cents)</th>
-        <th>Company</th>
-        <th>Size</th>
-        <th>Stock</th>
-        <th>Local</th>
-        <th>Organic/ Natural</th>
-        <th>Free Delivery</th>
-        <th>Category</th>
-        <th>Tags</th>
-        <th>Actions</th>
+        <th data-sortable="true">Date Added</th>
+        <th data-sortable="true">Name</th>
+        <th data-sortable="true">Description</th>
+        <th data-sortable="true">Cost (in cents)</th>
+        <th data-sortable="true">Company</th>
+        <th data-sortable="true">Size</th>
+        <th data-sortable="true">Stock</th>
+        <th data-sortable="true">Local</th>
+        <th data-sortable="true">Organic/ Natural</th>
+        <th data-sortable="true">Free Delivery</th>
+        <th data-sortable="true">Category</th>
+        <th data-sortable="true">Tags</th>
+        <th data-sortable="true">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -60,7 +60,7 @@
         <td>{{ this.stock }}</td>
         <td>{{ this.local }}</td>
         <td>{{ this.organic_natural }}</td>
-        <td>{{ this.free_delivery}}</td>
+        <td>{{ this.free_delivery }}</td>
         <td>{{ this.category.category_name }}</td>
         <td>
           {{#each this.tags}}

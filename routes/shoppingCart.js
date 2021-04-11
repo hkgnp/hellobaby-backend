@@ -5,7 +5,11 @@ const CartServices = require('../services/cart_services');
 
 router.get('/', async (req, res) => {
   try {
-    let cart = new CartServices(req.session.user.id);
+    let userId = await req.session.user.id;
+    console.log(userId);
+
+    let cart = await new CartServices(userId);
+
     const allItems = await cart.getAll();
 
     res.render('cart/index', {

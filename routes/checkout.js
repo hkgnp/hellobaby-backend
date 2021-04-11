@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 
   for (let cartItem of allCartItems) {
     const lineItem = {
-      name: cartItem.related('products').get('title'),
+      name: cartItem.related('products').get('name'),
       amount: cartItem.related('products').get('cost'),
       quantity: cartItem.get('quantity'),
       currency: 'SGD',
@@ -63,26 +63,23 @@ router.post(
     let sigHeader = req.headers['stripe-signature'];
     let event;
     try {
-      event = stripe.webhooks.constructEvent(
+      const event = stripe.webhooks.constructEvent(
         payload,
         sigHeader,
         endpointSecret
       );
+      if (event.type === 'checkout.session.completed') {
+        console.log(event.data.object);
+      }
     } catch (e) {
       res.send({
         error: e.message,
       });
       console.log(e.message);
     }
-    if (event.type == 'checkout.session.completed') {
-      console.log(event.data.object);
-    }
+
     res.sendStatus(200);
   }
 );
-
-router.get('/error', async (req, res) => {
-  // Insert rendering of error message if payment is unsuccessful
-});
 
 module.exports = router;

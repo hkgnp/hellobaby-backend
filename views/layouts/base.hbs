@@ -24,6 +24,12 @@
       crossorigin="anonymous"
     />
 
+    <!--Bootstrap tables-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css"
+    />
+
     <!--Site CSS-->
     <link rel="stylesheet" href="../../style.css" />
     <title>{{#block 'title'}}{{/block}}</title>
@@ -71,8 +77,10 @@
             <li class="nav-item">
               <a class="nav-link" href="/products/create">Create Product</a>
             </li>
-                        <li class="nav-item">
-              <a class="nav-link" href="/products/addcategorytags">Add Category/Tag</a>
+            <li class="nav-item">
+              <a class="nav-link" href="/products/addcategorytags"
+                >Add Category/Tag</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/about-us">About</a>
@@ -133,6 +141,8 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+
     {{#block 'js'}}
     {{/block}}
   </body>

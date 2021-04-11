@@ -64,7 +64,6 @@ app.use((req, res, next) => {
   }
   csurfInstance(req, res, next);
 });
-// app.use(csurf());
 
 app.use((err, req, res, next) => {
   if (err) {
@@ -110,14 +109,13 @@ const api = {
 };
 
 const landingRoutes = require('./routes/landing');
-const corporateRoutes = require('./routes/corporate');
 const productsRoutes = require('./routes/products');
 const userRoutes = require('./routes/users');
 const cloudinaryRoutes = require('./routes/cloudinary');
 const shoppingCartRoutes = require('./routes/shoppingCart');
 const checkoutRoutes = require('./routes/checkout');
 
-const main = async () => {
+(async () => {
   app.use('/', landingRoutes);
   app.use('/products', productsRoutes);
   app.use('/users', userRoutes);
@@ -126,10 +124,10 @@ const main = async () => {
   app.use('/checkout', checkoutRoutes);
   app.use('/api/products', express.json(), api.products);
   app.use('/api/users', express.json(), api.users);
-};
+})();
 
-main();
-
-app.listen(3000, () => {
-  console.log('Server has started on port 3000');
-});
+// Set server port
+const portNumber = 7000;
+app.listen(process.env.PORT || portNumber, () =>
+  console.log('Server is running on port ' + portNumber)
+);
