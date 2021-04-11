@@ -307,14 +307,14 @@ const userProfile = () => {
 const addCategoryAddTags = () => {
   return forms.create({
     category: fields.string({
-      required: true,
+      required: false,
       errorAfterField: true,
       cssClass: {
         label: ['form-label'],
       },
     }),
     tags: fields.string({
-      required: true,
+      required: false,
       errorAfterField: true,
       cssClass: {
         label: ['form-label'],
@@ -323,6 +323,7 @@ const addCategoryAddTags = () => {
     }),
   });
 };
+
 module.exports = {
   bootstrapField,
   createProductForm,
