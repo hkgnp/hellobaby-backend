@@ -122,6 +122,11 @@ const createProductForm = (categories, tags) => {
       errorAfterField: true,
       widget: widgets.hidden(),
     }),
+    thumbnail_url: fields.string({
+      required: true,
+      errorAfterField: true,
+      widget: widgets.hidden(),
+    }),
   });
 };
 
