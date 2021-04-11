@@ -153,6 +153,7 @@ router.post('/create', async (req, res) => {
   const allTags = await getProductDataLayer.getAllTags();
 
   const productForm = createProductForm(allCategories, allTags);
+
   productForm.handle(req, {
     success: async (form) => {
       let { tags, ...productData } = form.data;
@@ -304,6 +305,13 @@ router.get('/addcategorytags', (req, res) => {
   res.render('products/addcategorytags', {
     form: form.toHTML(bootstrapField),
   });
+});
+
+router.post('/addcategorytags', (req, res) => {
+  const form = addCategoryAddTags();
+
+  req.flash('success_messages', 'Category / Tag has been added');
+  res.redirect('/products/create');
 });
 
 module.exports = router;

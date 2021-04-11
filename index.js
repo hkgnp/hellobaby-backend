@@ -119,7 +119,6 @@ const checkoutRoutes = require('./routes/checkout');
 
 const main = async () => {
   app.use('/', landingRoutes);
-  app.use('/company', corporateRoutes);
   app.use('/products', productsRoutes);
   app.use('/users', userRoutes);
   app.use('/cloudinary', cloudinaryRoutes);
