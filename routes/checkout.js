@@ -3,6 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 
 const CartServices = require('../services/cart_services');
+const { Router } = require('express');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -63,7 +64,7 @@ router.post(
     let sigHeader = req.headers['stripe-signature'];
     let event;
     try {
-      const event = stripe.webhooks.constructEvent(
+      event = stripe.webhooks.constructEvent(
         payload,
         sigHeader,
         endpointSecret
@@ -77,9 +78,17 @@ router.post(
       });
       console.log(e.message);
     }
-
     res.sendStatus(200);
   }
 );
+
+router.get('/success', async (req, res) => {
+  let cart = await new CartServices(req.session.user.id);
+  const allItems = await cart.getAll();
+  await Promise.all(allItems.map((item) => item.destroy()));
+
+  req.flash('success_messages', 'Thank you for your purchase!');
+  res.redirect('/products');
+});
 
 module.exports = router;
