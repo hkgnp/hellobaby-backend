@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-// import the Product model
-const { Product } = require('../models');
+// import the Product, Category and Tag model
+const { Product, Category, Tag } = require('../models');
 
 // import the forms
 const {
@@ -300,15 +300,37 @@ router.post('/:product_id/delete', async (req, res) => {
 });
 
 router.get('/addcategorytags', (req, res) => {
-  const form = addCategoryAddTags();
+  const addCategoryTagsForm = addCategoryAddTags();
 
   res.render('products/addcategorytags', {
-    form: form.toHTML(bootstrapField),
+    form: addCategoryTagsForm.toHTML(bootstrapField),
   });
 });
 
 router.post('/addcategorytags', (req, res) => {
-  const form = addCategoryAddTags();
+  const addCategoryTagsForm = addCategoryAddTags();
+
+  addCategoryTagsForm.handle(req, {
+    success: async (form) => {
+      const { category_name, tag_name } = form.data;
+
+      if (category_name) {
+        let newCategory = new Category();
+        newCategory.set('category_name', category_name);
+        await newCategory.save();
+      }
+
+      if (tag_name) {
+        const newTag = new Tag();
+        newTag.set('tag_name', tag_name);
+        await newTag.save();
+      }
+
+      // if (category_name && tag_name) {
+
+      // }
+    },
+  });
 
   req.flash('success_messages', 'Category / Tag has been added');
   res.redirect('/products/create');

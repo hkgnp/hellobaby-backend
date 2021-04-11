@@ -7,7 +7,10 @@
 <form method="POST" class="form-dark">
   <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
   {{{form}}}
-  <span>Don't see a category or tag you need? <a href="/products/addcategorytags">Click here</a> to add one.</span>
+  <span
+    >Don't see a category or tag you need?
+    <a href="/products/addcategorytags">Click here</a> to add one.</span
+  >
   <div>
     <a href="#" class="btn btn-info mt-3" id="upload_image_widget"
       >Upload Image</a
@@ -76,7 +79,8 @@
       console.log(res.info);
 
       document.querySelector('#id_img_url').value = res.info.url;
-      document.querySelector('#id_thumbnail_url').value = res.info.thumbnail_url;
+      document.querySelector('#id_thumbnail_url').value =
+        res.info.thumbnail_url;
       document.querySelector('#uploaded_image').src = res.info.thumbnail_url;
       document.querySelector('#uploaded_image').style.display = 'block';
       document.querySelector('#uploaded_image_div').style.display = 'flex';

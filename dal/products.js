@@ -8,7 +8,7 @@ const getAllProducts = async () => {
 const getAllCategories = async () => {
   const fetchCategories = await Category.fetchAll();
   const allCategories = fetchCategories.map((category) => {
-    return [category.get('id'), category.get('name')];
+    return [category.get('id'), category.get('category_name')];
   });
   return allCategories;
 };
@@ -16,7 +16,7 @@ const getAllCategories = async () => {
 const getAllTags = async () => {
   const fetchTags = await Tag.fetchAll();
   const allTags = fetchTags.map((tag) => {
-    return [tag.get('id'), tag.get('name')];
+    return [tag.get('id'), tag.get('tag_name')];
   });
   return allTags;
 };

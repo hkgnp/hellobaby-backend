@@ -311,20 +311,19 @@ const userProfile = () => {
 
 const addCategoryAddTags = () => {
   return forms.create({
-    category: fields.string({
+    category_name: fields.string({
       required: false,
       errorAfterField: true,
       cssClass: {
         label: ['form-label'],
       },
     }),
-    tags: fields.string({
+    tag_name: fields.string({
       required: false,
       errorAfterField: true,
       cssClass: {
         label: ['form-label'],
       },
-      validators: [validators.email()],
     }),
   });
 };

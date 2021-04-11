@@ -22,6 +22,7 @@ const getHashedPassword = (password) => {
 
 router.get('/register', (req, res) => {
   const registrationForm = createUserForm();
+
   res.render('users/register', {
     form: registrationForm.toHTML(bootstrapField),
   });

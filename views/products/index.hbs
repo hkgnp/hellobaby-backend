@@ -46,8 +46,8 @@
       {{#each products}}
       <tr>
         <td>
-          {{#if this.img_url}}
-          <img class="img-fluid" src="{{ this.img_url }}" />
+          {{#if this.thumbnail_url}}
+          <img class="img-fluid" src="{{ this.thumbnail_url }}" />
           {{/if}}
         </td>
         <td>{{ dateFormat this.date_added format='DD-MM-YYYY' }}</td>
