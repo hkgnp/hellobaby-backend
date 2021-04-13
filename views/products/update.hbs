@@ -10,12 +10,11 @@
 <form method="POST">
   <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
   {{{form}}}
-  <span
-    >Don't see a category or tag you need?
+  <div class="mb-2">
+    <i>Don't see a category or tag you need?
     <a href="/products/addcategorytags" class="text-light"><u>Click here</u></a>
-    to add one.</span
-  >
-  <div>
+    to add one.</i>
+  </div>
     <!-- UploadCare -->
     <input
       type="hidden"
@@ -27,7 +26,7 @@
   </div>
   <input
     type="submit"
-    class="btn btn-primary mt-3 mb-5 btn-sm"
+    class="btn btn-primary mt-3 mb-5"
     value="Update Product"
   />
 </form>

@@ -7,11 +7,11 @@
 <form method="POST" class="form-dark">
   <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
   {{{form}}}
-  <span
-    >Don't see a category or tag you need?
+  <div class="mb-2">
+    <i>Don't see a category or tag you need?
     <a href="/products/addcategorytags" class="text-light"><u>Click here</u></a>
-    to add one.</span
-  >
+    to add one.</i>
+  </div>
   <div>
     <!-- UploadCare -->
     <input
