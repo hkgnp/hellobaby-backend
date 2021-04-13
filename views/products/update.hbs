@@ -10,22 +10,20 @@
 <form method="POST">
   <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
   {{{form}}}
+  <span
+    >Don't see a category or tag you need?
+    <a href="/products/addcategorytags" class="text-light"><u>Click here</u></a>
+    to add one.</span
+  >
   <div>
-    <a href="#" class="btn btn-info mt-3 btn-sm" id="upload_image_widget"
-      >Update Image</a
-    >
-    <div
-      class="row border border-light mx-1 mt-3 p-3"
-      id="uploaded_image_div"
-      style="display: none"
-    >
-      <img src="" style="display: block" id="uploaded_image" />
-      <div
-        class="pl-3"
-        style="vertical-align: center"
-        id="uploaded_image_name"
-      ></div>
-    </div>
+    <!-- UploadCare -->
+    <input
+      type="hidden"
+      role="uploadcare-uploader"
+      id="uploadedImage"
+      data-preview-step="true"
+      data-effects="crop,rotate,enhance,sharp,grayscale"
+    />
   </div>
   <input
     type="submit"
