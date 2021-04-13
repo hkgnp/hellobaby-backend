@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const uploadcare = require('uploadcare-widget');
 
 // import the Product, Category and Tag model
 const { Product, Category, Tag } = require('../models');
