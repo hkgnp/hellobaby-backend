@@ -145,9 +145,6 @@ router.get('/create', async (req, res) => {
   res.render('products/create', {
     form: productForm.toHTML(bootstrapField),
     uploadcarePublicKey: process.env.UPLOADCARE_PUBLIC_KEY,
-    cloudinaryName: process.env.CLOUDINARY_NAME,
-    cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
-    cloudinaryUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
   });
 });
 
@@ -249,9 +246,7 @@ router.get('/:product_id/update', async (req, res) => {
   res.render('products/update', {
     form: form.toHTML(bootstrapField),
     product: productToEdit.toJSON(),
-    cloudinaryName: process.env.CLOUDINARY_NAME,
-    cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
-    cloudinaryUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
+    uploadcarePublicKey: process.env.UPLOADCARE_PUBLIC_KEY,
   });
 });
 

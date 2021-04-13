@@ -36,64 +36,36 @@
 {{/block}}
 
 {{#block 'js'}}
-{{!-- Initialise Cloudinary --}}
-
+{{!-- UploadCare --}}
 <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
-  integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-  crossorigin="anonymous"
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  charset="utf-8"
 ></script>
-<script
-  src="https://widget.cloudinary.com/v2.0/global/all.js"
-  type="text/javascript"
-></script>
-
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
+<script src="https://ucarecdn.com/libs/widget-tab-effects/1.x/uploadcare.tab-effects.min.js"></script>
 <script>
-  const cloudName = '{{cloudinaryName}}';
-  const apiKey = '{{cloudinaryApiKey}}';
-  const uploadPreset = '{{cloudinaryUploadPreset}}';
+  UPLOADCARE_PUBLIC_KEY = '{{ uploadcarePublicKey }}';
+  uploadcare.registerTab('preview', uploadcareTabEffects);
+  const widget = uploadcare.Widget('[role=uploadcare-uploader]');
 
-  // Boilet plate to get signature from Cloudinary
-  async function getSignature(callback, params_to_sign) {
-    const response = await axios.get('/cloudinary/sign', {
-      params: {
-        params_to_sign: params_to_sign,
-      },
-    });
-    callback(response.data);
-  }
-
-  // Boiler plate for config object
-  const config = {
-    // Destructuring
-    cloudName,
-    apiKey,
-    uploadPreset,
-    uploadSignature: getSignature,
-  };
-
- const uploadWidget = cloudinary.createUploadWidget(config, (err, res) => {
-    if (!err && res && res.event === 'success') {
-      console.log('Successful upload');
-      console.log(res.info);
-
-      document.querySelector('#id_img_url').value = res.info.url;
-      document.querySelector('#id_thumbnail_url').value =
-        res.info.thumbnail_url;
-      document.querySelector('#uploaded_image').src = res.info.thumbnail_url;
-      document.querySelector('#uploaded_image').style.display = 'block';
-      document.querySelector('#uploaded_image_div').style.display = 'flex';
-      document.querySelector('#uploaded_image_name').innerHTML = `
-        <h4 class="mt-2 ">${res.info.original_filename}</h4>
-        <h6 class="mt-0">${res.info.resource_type}</h6>
-        `;
-    }
+  widget.onUploadComplete(async (info) => {
+    await uploadedDialog(info);
   });
-  document
-    .querySelector('#upload_image_widget')
-    .addEventListener('click', () => {
-      uploadWidget.open();
-    });
+
+  uploadedDialog = (info) => {
+    const thumbnailUrl = `${info.cdnUrl}/-/preview/-/scale_crop/200x200/`;
+    document.querySelector('#id_img_url').value = info.cdnUrl;
+    document.querySelector('#id_thumbnail_url').value = info.thumbnailUrl;
+    document.querySelector('#uploadedImage').parentElement.innerHTML = `
+      <div class="row border border-light mx-1 mt-3 p-3" id="uploaded_image_div">
+        <img src="${thumbnailUrl}" style="display: block" id="uploaded_image" />
+        <div class="pl-3" style="vertical-align: center" id="uploaded_image_name">
+          <h4 class="mt-2 ">${info.name}</h4>
+          <h6 class="mt-0">${info.mimeType}</h6></div>
+        </div>
+      </div>
+    `;
+  };
 </script>
 {{/block}}
 

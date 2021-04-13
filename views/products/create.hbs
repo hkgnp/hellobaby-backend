@@ -51,7 +51,8 @@
 
   uploadedDialog = (info) => {
     const thumbnailUrl = `${info.cdnUrl}/-/preview/-/scale_crop/200x200/`;
-    console.log(thumbnailUrl);
+    document.querySelector('#id_img_url').value = info.cdnUrl;
+    document.querySelector('#id_thumbnail_url').value = info.thumbnailUrl;
     document.querySelector('#uploadedImage').parentElement.innerHTML = `
       <div class="row border border-light mx-1 mt-3 p-3" id="uploaded_image_div">
         <img src="${thumbnailUrl}" style="display: block" id="uploaded_image" />
