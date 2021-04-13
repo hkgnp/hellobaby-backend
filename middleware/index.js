@@ -8,7 +8,7 @@ const checkIfLoggedIn = (req, res, next) => {
       'error_messages',
       'This page is only accessible to registered users who have logged in'
     );
-    res.redirect('back');
+    res.redirect('/users/login');
   }
 };
 
@@ -31,4 +31,7 @@ const checkIfLoggedInJWT = (req, res, next) => {
   }
 };
 
-module.exports = { checkIfLoggedIn, checkIfLoggedInJWT };
+module.exports = {
+  checkIfLoggedIn,
+  checkIfLoggedInJWT,
+};

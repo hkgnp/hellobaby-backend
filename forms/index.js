@@ -5,56 +5,28 @@ const fields = forms.fields;
 const validators = forms.validators;
 const widgets = forms.widgets;
 
-// const bootstrapField = function (name, object) {
-//   if (!Array.isArray(object.widget.classes)) {
-//     object.widget.classes = [];
-//   }
-
-//   if (object.widget.classes.indexOf('form-control') === -1) {
-//     object.widget.classes.push('form-control');
-//   }
-
-//   let validationclass = object.value && !object.error ? 'is-valid' : '';
-//   validationclass = object.error ? 'is-invalid' : validationclass;
-//   if (validationclass) {
-//     object.widget.classes.push(validationclass);
-//   }
-
-//   let label = object.labelHTML(name);
-//   let error = object.error
-//     ? '<div class="invalid-feedback">' + object.error + '</div>'
-//     : '';
-
-//   let widget = object.widget.toHTML(name, object);
-//   return '<div class="form-group">' + label + widget + error + '</div>';
-// };
-
 const bootstrapField = (name, object) => {
   if (!Array.isArray(object.widget.classes)) {
     object.widget.classes = [];
   }
+
   if (object.widget.classes.indexOf('form-control') === -1) {
     object.widget.classes.push('form-control');
   }
 
+  let validationclass = object.value && !object.error ? 'is-valid' : '';
+  validationclass = object.error ? 'is-invalid' : validationclass;
+  if (validationclass) {
+    object.widget.classes.push(validationclass);
+  }
+
   let label = object.labelHTML(name);
   let error = object.error
-    ? '<div class="alert alert-error help-block">' + object.error + '</div>'
+    ? '<div class="invalid-feedback">' + object.error + '</div>'
     : '';
 
-  let validationclass = object.value && !object.error ? 'has-success' : '';
-  validationclass = object.error ? 'has-error' : validationclass;
-
   let widget = object.widget.toHTML(name, object);
-  return (
-    '<div class="form-group' +
-    validationclass +
-    '">' +
-    label +
-    widget +
-    error +
-    '</div>'
-  );
+  return '<div class="form-group">' + label + widget + error + '</div>';
 };
 
 const createProductForm = (categories, tags, yesNo) => {
@@ -160,12 +132,17 @@ const createProductForm = (categories, tags, yesNo) => {
       choices: tags,
     }),
     img_url: fields.string({
-      required: false,
+      required: true,
       errorAfterField: true,
       widget: widgets.hidden(),
     }),
     thumbnail_url: fields.string({
-      required: false,
+      required: true,
+      errorAfterField: true,
+      widget: widgets.hidden(),
+    }),
+    user_id: fields.string({
+      required: true,
       errorAfterField: true,
       widget: widgets.hidden(),
     }),
@@ -279,6 +256,7 @@ const createProductSearchForm = (categories, tags) => {
 const createUserForm = () => {
   return forms.create({
     username: fields.string({
+      label: 'Your Name',
       required: true,
       errorAfterField: true,
       cssClasses: {
@@ -313,13 +291,13 @@ const createUserForm = () => {
 
 const loginUserForm = () => {
   return forms.create({
-    email: fields.string({
+    email: fields.email({
+      validators: [validators.email()],
       required: true,
       errorAfterField: true,
       cssClasses: {
         label: ['form-label'],
       },
-      validators: [validators.email()],
     }),
     password: fields.password({
       required: true,

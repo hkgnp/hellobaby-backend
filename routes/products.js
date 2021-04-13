@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const uploadcare = require('uploadcare-widget');
 
 // import the Product, Category and Tag model
 const { Product, Category, Tag } = require('../models');
@@ -14,7 +13,7 @@ const {
 } = require('../forms');
 
 // import middleware protection
-const { checkifLoggedIn } = require('../middleware');
+const { checkIfLoggedIn } = require('../middleware');
 
 // import dal
 const getProductDataLayer = require('../dal/products');
@@ -133,7 +132,7 @@ router.get('/', async (req, res) => {
   });
 });
 
-router.get('/create', async (req, res) => {
+router.get('/create', checkIfLoggedIn, async (req, res) => {
   const allCategories = await getProductDataLayer.getAllCategories();
 
   const allTags = await getProductDataLayer.getAllTags();
@@ -193,7 +192,7 @@ router.post('/create', async (req, res) => {
   });
 });
 
-router.get('/:product_id/update', async (req, res) => {
+router.get('/:product_id/update', checkIfLoggedIn, async (req, res) => {
   const allCategories = await getProductDataLayer.getAllCategories();
 
   const allTags = await getProductDataLayer.getAllTags();
@@ -300,7 +299,7 @@ router.post('/:product_id/update', async (req, res) => {
   });
 });
 
-router.get('/:product_id/delete', async (req, res) => {
+router.get('/:product_id/delete', checkIfLoggedIn, async (req, res) => {
   const productToDelete = await getProductDataLayer.getProductById(
     req.params.product_id
   );
@@ -321,7 +320,7 @@ router.post('/:product_id/delete', async (req, res) => {
   res.redirect('/products');
 });
 
-router.get('/addcategorytags', (req, res) => {
+router.get('/addcategorytags', checkIfLoggedIn, (req, res) => {
   const addCategoryTagsForm = addCategoryAddTags();
 
   res.render('products/addcategorytags', {

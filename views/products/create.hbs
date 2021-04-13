@@ -20,6 +20,7 @@
       id="uploadedImage"
       data-preview-step="true"
       data-effects="crop,rotate,enhance,sharp,grayscale"
+      data-image-shrink="800x600 80%"
     />
   </div>
   <input
@@ -32,6 +33,10 @@
 {{/block}}
 
 {{#block 'js'}}
+{{!-- Add user id when creating/updating a product --}}
+<script>
+  document.querySelector('#id_user_id').value = '{{ user.id }}';
+</script>
 
 {{!-- UploadCare --}}
 <script
@@ -52,7 +57,7 @@
   uploadedDialog = (info) => {
     const thumbnailUrl = `${info.cdnUrl}/-/preview/-/scale_crop/200x200/`;
     document.querySelector('#id_img_url').value = info.cdnUrl;
-    document.querySelector('#id_thumbnail_url').value = info.thumbnailUrl;
+    document.querySelector('#id_thumbnail_url').value = thumbnailUrl;
     document.querySelector('#uploadedImage').parentElement.innerHTML = `
       <div class="row border border-light mx-1 mt-3 p-3" id="uploaded_image_div">
         <img src="${thumbnailUrl}" style="display: block" id="uploaded_image" />
