@@ -3,6 +3,18 @@
 {{#block 'title'}} Create a Product {{/block}}
 
 {{#block 'content'}}
+<style>
+  .table {
+  table-layout: fixed;
+}
+
+.table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+</style>
 <h1>Create New Product</h1>
 <form method="POST" class="form-dark">
   <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
