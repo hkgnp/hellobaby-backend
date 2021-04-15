@@ -3,8 +3,8 @@ const router = express.Router();
 
 const CartServices = require('../../services/cart_services');
 
-router.get('/', async (req, res) => {
-  let cart = await new CartServices(req.session.user.id);
+router.get('/:user_id', async (req, res) => {
+  let cart = await new CartServices(req.params.user_id);
   const allItems = await cart.getAll();
 
   res.send({
