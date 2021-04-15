@@ -107,6 +107,7 @@ app.use((req, res, next) => {
 const api = {
   products: require('./routes/api/products'),
   users: require('./routes/api/users'),
+  cart: require('./routes/api/cart'),
 };
 
 const landingRoutes = require('./routes/landing');
@@ -125,6 +126,7 @@ const checkoutRoutes = require('./routes/checkout');
   app.use('/checkout', checkoutRoutes);
   app.use('/api/products', express.json(), api.products);
   app.use('/api/users', express.json(), api.users);
+  app.use('/api/cart', express.json(), api.cart);
 })();
 
 // Set server port
