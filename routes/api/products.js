@@ -6,7 +6,10 @@ const { createProductForm } = require('../../forms/index.js');
 const { Product } = require('../../models');
 
 router.get('/', async (req, res) => {
-  const allProducts = await getProductDataLayer.getAllProducts();
+  const allProducts = await Product.fetchAll({
+    withRelated: ['category', 'tags'],
+  });
+
   res.send(allProducts);
 });
 
