@@ -13,6 +13,13 @@ router.get('/', async (req, res) => {
   res.send(allProducts);
 });
 
+router.get('/:product_id', async (req, res) => {
+  const productById = await getProductDataLayer.getProductById(
+    req.params.product_id
+  );
+  res.send(productById);
+});
+
 router.post('/', async (req, res) => {
   // Option 1: This assumes that the form already has all the required fields
   //   let newProduct = new Product(req.body.data);
