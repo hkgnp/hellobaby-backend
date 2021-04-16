@@ -81,13 +81,14 @@ router.post(
   }
 );
 
-router.get('/success', async (req, res) => {
-  let cart = await new CartServices(req.session.user.id);
+router.get('/success/:user_id', async (req, res) => {
+  let cart = await new CartServices(req.session.user_id);
   const allItems = await cart.getAll();
   await Promise.all(allItems.map((item) => item.destroy()));
 
-  req.flash('success_messages', 'Thank you for your purchase!');
-  res.redirect('/products');
+  res.send({
+      message: "Thank you for your purchase"
+  })
 });
 
 module.exports = router;
