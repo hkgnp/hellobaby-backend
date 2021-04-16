@@ -30,7 +30,7 @@ router.post('/update/:user_id/:product_id', async (req, res) => {
 });
 
 router.get('/remove/:user_id/:product_id', async (req, res) => {
-  let cart = await new CartServices(req.params.user.id);
+  let cart = await new CartServices(req.params.user_id);
   await cart.removeItem(req.params.product_id);
   res.send({
     message: 'Item has been removed from the cart',
