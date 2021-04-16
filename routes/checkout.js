@@ -3,7 +3,6 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 
 const CartServices = require('../services/cart_services');
-const { Router } = require('express');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
