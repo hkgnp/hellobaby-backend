@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
         id: user.get('id'),
       },
       process.env.TOKEN_SECRET,
-      '60m'
+      '15m'
     );
 
     let refreshToken = generateAccessToken(
