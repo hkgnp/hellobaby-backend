@@ -82,14 +82,13 @@ router.post(
 );
 
 // Route to clear cart
-router.get('/success/:user_id/:session_id', async (req, res) => {
+router.get('/success/:user_id', async (req, res) => {
   // Remove items after successful checkout
   let cart = await new CartServices(req.params.user_id);
   const allItems = await cart.getAll();
   await Promise.all(allItems.map((item) => item.destroy()));
 
   // Send success message
-
   res.send({
     message: 'Thank you for your purchase',
   });
