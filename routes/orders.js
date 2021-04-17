@@ -11,8 +11,10 @@ router.get('/', async (req, res) => {
     withRelated: ['status', 'user'],
   });
 
+  console.log(allStatuses);
   res.render('orders/index', {
     orders: allOrders.toJSON(),
+    statuses: allStatuses,
   });
 });
 

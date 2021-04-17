@@ -7,3 +7,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+#update-status {
+  display: none;
+}

@@ -22,6 +22,11 @@ app.use(express.static('public'));
 wax.on(hbs.handlebars);
 wax.setLayoutPath('./views/layouts');
 
+//eq
+require('handlebars-helpers')({
+  handlebars: hbs.handlebars,
+});
+
 // date time
 hbs.registerHelper('dateFormat', function (date, options) {
   const formatToUse =

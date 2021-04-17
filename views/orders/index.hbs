@@ -6,28 +6,55 @@
 <h1>All Orders</h1>
 
 <div class="table-responsive table-dark">
-    <table data-toggle="table" class="table">
-        <thead>
-            <tr>
-                <th data-sortable="true">Order ID</th>
-                <th data-sortable="true">Customer Name</th>
-                <th data-sortable="true">Customer Email</th>
-                <th data-sortable="true">Order Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each orders}}
-            <tr>
-                <td>{{this.order_id}}</td>
-                <td>{{this.user.username}}</td>
-                <td>{{this.user.email}}</td>
-                <td>{{this.status.name}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+  <table data-toggle="table" class="table">
+    <thead>
+      <tr>
+        <th data-sortable="true">Order ID</th>
+        <th data-sortable="true">Customer Name</th>
+        <th data-sortable="true">Customer Email</th>
+        <th data-sortable="true">Order Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each orders}}
+      <tr>
+        <td>{{ order_id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ status.name }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-primary m–0"
+            name="{{ order_id }}"
+            onclick="updateStatus(this)"
+          >
+            Update Status
+          </button>
+          <span id="{{ order_id }}"></span>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
+<!-- <div id="update-status"></div> -->
 
+{{/block}}
+
+{{#block 'js'}}
+<script>
+  const updateStatus = (e) => {
+    let targetName = e.name;
+    document.querySelector(`#${targetName}`).innerHTML = `
+    <select class="form-control form-control-sm" id="change-status">
+    {{#each statuses}}
+      <option>{{name}}</option>
+    {{/each}}
+    </select>
+    `;
+  };
+</script>
 {{/block}}
 
 {{/extends}}
