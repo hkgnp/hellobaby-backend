@@ -5,6 +5,8 @@
 {{#each orders}}
 <li>{{this.order_id}}</li>
 <li>{{this.status.name}}</li>
+<li>{{this.user.username}}</li>
+<li>{{this.user.email}}</li>
 {{/each}}
 {{/block}}
 {{/extends}}

@@ -15,9 +15,18 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
-  return db.createTable('orders', {
-    id: { type: 'int', unsigned: true, primaryKey: true, autoIncrement: true },
-    order_id: { type: 'string', length: 200 },
+  return db.addColumn('orders', 'user_id', {
+    type: 'int',
+    unsigned: true,
+    foreignKey: {
+      name: 'order_user_fk',
+      table: 'users',
+      mapping: 'id',
+      rules: {
+        onDelete: 'restrict',
+        onUpdate: 'restrict',
+      },
+    },
   });
 };
 

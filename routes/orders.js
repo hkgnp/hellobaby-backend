@@ -1,14 +1,14 @@
 const express = require('express');
-const { Order, Status } = require('../models');
+const { Order } = require('../models');
 const router = express.Router();
 const getOrderDataLayer = require('../dal/orders');
 
 router.get('/', async (req, res) => {
-  //   const allUsers = await getOrderDataLayer.getAllUsers();
+  const allUsers = await getOrderDataLayer.getAllUsers();
   const allStatuses = await getOrderDataLayer.getAllStatuses();
 
   const allOrders = await Order.collection().fetch({
-    withRelated: ['status'],
+    withRelated: ['status', 'user'],
   });
 
   res.render('orders/index', {
