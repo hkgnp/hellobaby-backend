@@ -1,12 +1,33 @@
 {{#extends 'base'}}
+
 {{#block 'title'}} All Orders {{/block}}
+
 {{#block 'content'}}
 <h1>All Orders</h1>
-{{#each orders}}
-<li>{{this.order_id}}</li>
-<li>{{this.status.name}}</li>
-<li>{{this.user.username}}</li>
-<li>{{this.user.email}}</li>
-{{/each}}
+
+<div class="table-responsive table-dark">
+    <table data-toggle="table" class="table">
+        <thead>
+            <tr>
+                <th data-sortable="true">Order ID</th>
+                <th data-sortable="true">Customer Name</th>
+                <th data-sortable="true">Customer Email</th>
+                <th data-sortable="true">Order Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each orders}}
+            <tr>
+                <td>{{this.order_id}}</td>
+                <td>{{this.user.username}}</td>
+                <td>{{this.user.email}}</td>
+                <td>{{this.status.name}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
 {{/block}}
+
 {{/extends}}
