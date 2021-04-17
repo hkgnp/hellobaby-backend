@@ -50,7 +50,7 @@
       document.querySelector(`#${targetName}`).innerHTML = `
         <select class="form-control form-control-sm" name=${targetName} onchange="updateStatus(this)">
         {{#each statuses}}
-          <option>{{name}}</option>
+          <option value="{{id}}">{{name}}</option>
         {{/each}}
         </select>
         `;
