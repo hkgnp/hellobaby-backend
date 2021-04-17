@@ -3,6 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 
 const CartServices = require('../services/cart_services');
+const OrderServices = require('../services/order_services');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -70,6 +71,15 @@ router.post(
       );
       if (event.type === 'checkout.session.completed') {
         console.log(event.data.object);
+        const { id, metadata } = event.data.object;
+
+        const orderId = id;
+        const userId = metadata.user_id;
+        const statusId = 2;
+        const orders = metadata.orders;
+
+        let order = await new OrderServices(userId);
+        order.addOrder(orderId, userId, statusId);
       }
     } catch (e) {
       res.send({

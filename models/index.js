@@ -35,6 +35,9 @@ const Tag = bookshelf.model('Tag', {
 
 const User = bookshelf.model('User', {
   tableName: 'users',
+  orders() {
+    return this.hasMany('Order');
+  },
 });
 
 const CartItem = bookshelf.model('CartItem', {
@@ -44,8 +47,34 @@ const CartItem = bookshelf.model('CartItem', {
   },
 });
 
+const Order = bookshelf.model('Order', {
+  tableName: 'orders',
+  status() {
+    return this.belongsTo('Status');
+  },
+  // user() {
+  //   return this.belongsTo('user');
+  // },
+});
+
+const Status = bookshelf.model('Status', {
+  tableName: 'statuses',
+  orders() {
+    return this.hasMany('Order');
+  },
+});
+
 const BlacklistedToken = bookshelf.model('BlacklistedToken', {
   tableName: 'blacklisted_tokens',
 });
 
-module.exports = { Product, Category, Tag, User, CartItem, BlacklistedToken };
+module.exports = {
+  Product,
+  Category,
+  Tag,
+  User,
+  CartItem,
+  Order,
+  Status,
+  BlacklistedToken,
+};

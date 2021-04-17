@@ -117,6 +117,7 @@ const userRoutes = require('./routes/users');
 const cloudinaryRoutes = require('./routes/cloudinary');
 const shoppingCartRoutes = require('./routes/shoppingCart');
 const checkoutRoutes = require('./routes/checkout');
+const orderRoutes = require('./routes/orders');
 
 (async () => {
   app.use('/', landingRoutes);
@@ -125,6 +126,7 @@ const checkoutRoutes = require('./routes/checkout');
   app.use('/cloudinary', cloudinaryRoutes);
   app.use('/cart', shoppingCartRoutes);
   app.use('/checkout', checkoutRoutes);
+  app.use('/orders', orderRoutes);
   app.use('/api/products', express.json(), api.products);
   app.use('/api/users', express.json(), api.users);
   app.use('/api/cart', express.json(), api.cart);

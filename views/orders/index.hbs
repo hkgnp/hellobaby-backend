@@ -1,0 +1,10 @@
+{{#extends 'base'}}
+{{#block 'title'}} All Orders {{/block}}
+{{#block 'content'}}
+<h1>All Orders</h1>
+{{#each orders}}
+<li>{{this.order_id}}</li>
+<li>{{this.status_id.name}}</li>
+{{/each}}
+{{/block}}
+{{/extends}}

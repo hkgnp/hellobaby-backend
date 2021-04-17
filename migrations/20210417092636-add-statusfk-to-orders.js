@@ -15,15 +15,22 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
-  return db.createTable('orders', {
-    id: { type: 'int', primaryKey: true, unSigned: true, autoIncrement: true },
-    order_id: { type: 'string', length: 200 },
-    user_id: { type: 'int' },
+  return db.addColumn('orders', 'status_id', {
+    type: 'int',
+    foreignKey: {
+      name: 'order_status_fk',
+      table: 'statuses',
+      mapping: 'id',
+      rules: {
+        onDelete: 'restrict',
+        onUpdate: 'restrict',
+      },
+    },
   });
 };
 
 exports.down = function (db) {
-  return db.dropTable('tags');
+  return null;
 };
 
 exports._meta = {

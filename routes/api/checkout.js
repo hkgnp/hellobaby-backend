@@ -42,6 +42,7 @@ router.get('/:user_id', async (req, res) => {
     cancel_url: process.env.STRIPE_ERROR_URL,
     metadata: {
       orders: metaData,
+      user_id: req.params.user_id,
     },
   };
   //3. Register payment
@@ -62,6 +63,7 @@ router.post(
     let endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
     let sigHeader = req.headers['stripe-signature'];
     let event;
+    console.log(req.body.ModelBase.attributes.id);
     try {
       event = stripe.webhooks.constructEvent(
         payload,
@@ -69,7 +71,8 @@ router.post(
         endpointSecret
       );
       if (event.type === 'checkout.session.completed') {
-        console.log(event.data.object);
+        console.log(req);
+        console.log(event);
       }
     } catch (e) {
       res.send({
