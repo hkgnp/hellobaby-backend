@@ -38,7 +38,6 @@
     </tbody>
   </table>
 </div>
-<!-- <div id="update-status"></div> -->
 
 {{/block}}
 
@@ -49,7 +48,7 @@
 
     if (document.querySelector(`#${targetName}`).innerHTML == '') {
       document.querySelector(`#${targetName}`).innerHTML = `
-        <select class="form-control form-control-sm" id="change-status">
+        <select class="form-control form-control-sm" name=${targetName} onchange="updateStatus(this)">
         {{#each statuses}}
           <option>{{name}}</option>
         {{/each}}
@@ -58,6 +57,10 @@
     } else {
       document.querySelector(`#${targetName}`).innerHTML = '';
     }
+  };
+
+  const updateStatus = (e) => {
+    alert('hello ' + e.name);
   };
 </script>
 {{/block}}
