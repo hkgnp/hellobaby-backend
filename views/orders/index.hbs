@@ -46,13 +46,18 @@
 <script>
   const updateStatus = (e) => {
     let targetName = e.name;
-    document.querySelector(`#${targetName}`).innerHTML = `
-    <select class="form-control form-control-sm" id="change-status">
-    {{#each statuses}}
-      <option>{{name}}</option>
-    {{/each}}
-    </select>
-    `;
+
+    if (document.querySelector(`#${targetName}`).innerHTML == '') {
+      document.querySelector(`#${targetName}`).innerHTML = `
+        <select class="form-control form-control-sm" id="change-status">
+        {{#each statuses}}
+          <option>{{name}}</option>
+        {{/each}}
+        </select>
+        `;
+    } else {
+      document.querySelector(`#${targetName}`).innerHTML = '';
+    }
   };
 </script>
 {{/block}}
