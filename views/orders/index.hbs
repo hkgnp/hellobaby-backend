@@ -27,7 +27,7 @@
           <button
             class="btn btn-sm btn-primary m–0"
             name="{{ order_id }}"
-            onclick="updateStatus(this)"
+            onclick="toggleUpdateStatus(this)"
           >
             Update Status
           </button>
@@ -44,7 +44,7 @@
 
 {{#block 'js'}}
 <script>
-  const updateStatus = (e) => {
+  const toggleUpdateStatus = (e) => {
     let targetName = e.name;
 
     if (document.querySelector(`#${targetName}`).innerHTML == '') {
