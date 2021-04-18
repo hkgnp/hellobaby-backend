@@ -5,7 +5,7 @@
 {{#block 'content'}}
 <h1>All Orders</h1>
 
-<div class="table-responsive table-dark">
+<div class="table-dark">
   <table data-toggle="table" class="table">
     <thead>
       <tr>
@@ -21,12 +21,12 @@
     <tbody>
       {{#each orders}}
       <tr>
-        <td>{{ order_id }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.address }}</td>
-        <td>{{ user.postal_code }}</td>
-        <td>{{ status.name }}</td>
+        <td class="td-content"><span>{{ order_id }}</span></td>
+        <td class="td-content"><span>{{ user.username }}</span></td>
+        <td class="td-content"><span>{{ user.email }}</span></td>
+        <td class="td-content"><span>{{ user.address }}</span></td>
+        <td class="td-content"><span>{{ user.postal_code }}</span></td>
+        <td class="td-content"><span>{{ status.name }}</span></td>
         <td>
           <button
             class="btn btn-sm btn-primary m–0"
