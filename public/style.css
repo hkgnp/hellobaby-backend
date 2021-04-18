@@ -2,10 +2,34 @@
   table-layout: fixed;
 }
 
-.table td {
+/* .table td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+} */
+
+table td.td-content {
+  max-width: 10px;
+}
+
+table td.td-content span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 100%;
+}
+table td.td-content:hover span {
+  background-color: #3b3636;
+  border-radius: 15px;
+  overflow: visible;
+  white-space: normal;
+  height: auto;
+  position: absolute;
+  padding: 10px;
+  /* top: -500px; */
+  margin-top: -27px;
+  z-index: 20;
 }
 
 #update-status {
