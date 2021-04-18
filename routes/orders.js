@@ -7,6 +7,7 @@ router.get('/', async (req, res) => {
   const allUsers = await getOrderDataLayer.getAllUsers();
   const allStatuses = await getOrderDataLayer.getAllStatuses();
   allStatuses.unshift([0, 'Select a Status']);
+
   const allOrders = await Order.collection().fetch({
     withRelated: ['status', 'user'],
   });
