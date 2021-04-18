@@ -20,13 +20,29 @@ const getHashedPassword = (password) => {
   return hash;
 };
 
+router.post('/register', async (req, res) => {
+  let { ...userData } = req.body;
+
+  // Hash the password
+  userData.password = getHashedPassword(userData.password);
+
+  // Create model and save user
+  const newUser = new User();
+  newUser.set(userData);
+  await newUser.save();
+
+  res.send({
+    message: 'User registered successfully',
+  });
+});
+
 router.post('/login', async (req, res) => {
   let user = await User.where({
     email: req.body.email,
   }).fetch({
     require: false,
   });
-  console.log(user);
+
   if (user && user.get('password') === getHashedPassword(req.body.password)) {
     let accessToken = generateAccessToken(
       {
