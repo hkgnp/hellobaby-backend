@@ -82,14 +82,24 @@ router.post('/login', async (req, res) => {
   } else {
     res.status(401);
     res.send({
-      error: 'Invalid email and password',
+      error: 'Invalid email or password',
     });
   }
 });
 
-router.get('/profile', checkIfLoggedInJWT, (req, res) => {
-  let user = req.user;
-  res.send(user);
+router.get('/profile', checkIfLoggedInJWT, async (req, res) => {
+  let user = await User.where({
+    email: req.user.email,
+  }).fetch({
+    require: false,
+  });
+
+  let { password, ...userDetails } = user.toJSON();
+  console.log(userDetails);
+
+  res.send({
+    user: userDetails,
+  });
 });
 
 router.post('/refresh', async (req, res) => {
