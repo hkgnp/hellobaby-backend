@@ -52,6 +52,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   let user = await User.where({
     email: req.body.email,
+    role_id: 2,
   }).fetch({
     require: false,
   });
