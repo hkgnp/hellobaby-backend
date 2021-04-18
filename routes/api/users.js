@@ -23,17 +23,30 @@ const getHashedPassword = (password) => {
 router.post('/register', async (req, res) => {
   let { ...userData } = req.body;
 
-  // Hash the password
-  userData.password = getHashedPassword(userData.password);
-
-  // Create model and save user
-  const newUser = new User();
-  newUser.set(userData);
-  await newUser.save();
-
-  res.send({
-    message: 'User registered successfully',
+  let user = await User.where({
+    email: userData.email,
+  }).fetch({
+    require: false,
   });
+
+  if (user) {
+    res.status(400);
+    res.send({
+      message: 'Email is already taken. Please choose another email.',
+    });
+  } else {
+    // Hash the password
+    userData.password = getHashedPassword(userData.password);
+
+    // Create model and save user
+    const newUser = new User();
+    newUser.set(userData);
+    await newUser.save();
+
+    res.send({
+      message: 'User registered successfully',
+    });
+  }
 });
 
 router.post('/login', async (req, res) => {
