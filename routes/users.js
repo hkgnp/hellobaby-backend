@@ -34,58 +34,69 @@ router.post('/register', async (req, res) => {
     success: async (form) => {
       let { confirm_password, ...userData } = form.data;
 
-      // Hash password before sending to database
-      userData.password = getHashedPassword(userData.password);
+      let user = await User.where({
+        email: form.data.email,
+      }).fetch({
+        require: false,
+      });
 
-      // Create model and save user
-      const newUser = new User();
-      newUser.set(userData);
-      await newUser.save();
+      if (user) {
+        req.flash('error_messages', 'Email is already taken');
+        res.redirect('/users/register');
+      } else {
+        // Hash password before sending to database
+        userData.password = getHashedPassword(userData.password);
 
-      // Proceed to login user after registering
-      const loginForm = loginUserForm();
-      loginForm.handle(req, {
-        success: async (form) => {
-          // Check if user exists
-          let user = await User.where({
-            email: form.data.email,
-          }).fetch({
-            require: false,
-          });
+        // Create model and save user
+        const newUser = new User();
+        newUser.set(userData);
+        await newUser.save();
 
-          // If user exists, check password
-          if (user) {
-            // Password matches, save the user to the session
-            if (
-              user.get('password') === getHashedPassword(form.data.password)
-            ) {
-              req.session.user = {
-                id: user.get('id'),
-                username: user.get('username'),
-                email: user.get('email'),
-              };
-              req.flash(
-                'success_messages',
-                `Welcome ${req.session.user.username}! Thanks for registering!`
-              );
-              res.redirect('/products');
+        // Proceed to login user after registering
+        const loginForm = loginUserForm();
+        loginForm.handle(req, {
+          success: async (form) => {
+            // Check if user exists
+            let user = await User.where({
+              email: form.data.email,
+            }).fetch({
+              require: false,
+            });
+
+            // If user exists, check password
+            if (user) {
+              // Password matches, save the user to the session
+              if (
+                user.get('password') === getHashedPassword(form.data.password)
+              ) {
+                req.session.user = {
+                  id: user.get('id'),
+                  username: user.get('username'),
+                  email: user.get('email'),
+                };
+                req.flash(
+                  'success_messages',
+                  `Welcome ${req.session.user.username}! Thanks for registering!`
+                );
+                res.redirect('/products');
+              } else {
+                req.flash(
+                  'error_messages',
+                  'Your password is incorrect. Please try again'
+                );
+                res.redirect('/users/login');
+              }
             } else {
+              // If user does not exist, go to login page to try again
               req.flash(
                 'error_messages',
-                'Your password is incorrect. Please try again'
+                'Email does not exist. Please register by using the Register button below.'
               );
               res.redirect('/users/login');
             }
-          } else {
-            // If user does not exist, go to login page to try again
-            req.flash(
-              'error_messages',
-              'Email does not exist. Please register by using the Register button below.'
-            );
-            res.redirect('/users/login');
-          }
-        },
-      });
+          },
+        });
+      }
     },
     error: (form) => {
       res.render('users/register', {
