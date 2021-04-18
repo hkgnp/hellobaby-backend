@@ -42,6 +42,12 @@
 {{/block}}
 
 {{#block 'js'}}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+  integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+  crossorigin="anonymous"
+></script>
+
 <script>
   const toggleUpdateStatus = (e) => {
     let targetName = e.name;
@@ -60,7 +66,11 @@
   };
 
   const updateStatus = (e) => {
-    alert('hello ' + e.name);
+    let orderId = e.name;
+    let newStatus = e.value;
+    window.location.href = `/orders/updatestatus/${orderId}/${newStatus}`;
+
+    // alert('Status updated successfully');
   };
 </script>
 {{/block}}

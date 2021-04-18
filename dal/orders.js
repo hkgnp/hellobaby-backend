@@ -1,4 +1,4 @@
-const { Status, User } = require('../models');
+const { Status, User, Order } = require('../models');
 
 const getAllStatuses = async () => {
   const fetchStatuses = await Status.fetchAll();
@@ -16,4 +16,12 @@ const getAllUsers = async () => {
   return allUsers;
 };
 
-module.exports = { getAllStatuses, getAllUsers };
+const getOrderById = async (orderId) => {
+  return await Order.where({
+    order_id: orderId,
+  }).fetch({
+    require: false,
+  });
+};
+
+module.exports = { getAllStatuses, getAllUsers, getOrderById };
