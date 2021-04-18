@@ -106,9 +106,10 @@ router.post('/login', (req, res) => {
   const loginForm = loginUserForm();
   loginForm.handle(req, {
     success: async (form) => {
-      // Check if user exists
+      // Check if user exists and if admin
       let user = await User.where({
         email: form.data.email,
+        role_id: 1,
       }).fetch({
         require: false,
       });
@@ -139,7 +140,7 @@ router.post('/login', (req, res) => {
         // If user does not exist, go to login page to try again
         req.flash(
           'error_messages',
-          'Email does not exist. Please register by using the Register button below.'
+          'Email does not exist or it does not belong to an Admin account. Please contact the system administrator.'
         );
         res.redirect('/users/login');
       }

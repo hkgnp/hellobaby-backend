@@ -255,6 +255,12 @@ const createProductSearchForm = (categories, tags) => {
 
 const createUserForm = () => {
   return forms.create({
+    role_id: fields.string({
+      label: 'Role',
+      required: true,
+      errorAfterField: true,
+      widget: widgets.hidden(),
+    }),
     username: fields.string({
       label: 'Your Name',
       required: true,
@@ -272,18 +278,20 @@ const createUserForm = () => {
       validators: [validators.email()],
     }),
     address: fields.string({
-      required: true,
+      required: false,
       errorAfterField: true,
       cssClasses: {
         label: ['form-label'],
       },
+      widget: widgets.hidden(),
     }),
     postal_code: fields.string({
-      required: true,
+      required: false,
       errorAfterField: true,
       cssClasses: {
         label: ['form-label'],
       },
+      widget: widgets.hidden(),
     }),
     password: fields.password({
       required: true,
