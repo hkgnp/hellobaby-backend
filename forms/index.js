@@ -271,6 +271,20 @@ const createUserForm = () => {
       },
       validators: [validators.email()],
     }),
+    address: fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label'],
+      },
+    }),
+    postal_code: fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label'],
+      },
+    }),
     password: fields.password({
       required: true,
       errorAfterField: true,
@@ -309,26 +323,6 @@ const loginUserForm = () => {
   });
 };
 
-const userProfile = () => {
-  return forms.create({
-    username: fields.string({
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-    }),
-    email: fields.string({
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-      validators: [validators.email()],
-    }),
-  });
-};
-
 const addCategoryAddTags = () => {
   return forms.create({
     category_name: fields.string({
@@ -354,6 +348,5 @@ module.exports = {
   createProductSearchForm,
   createUserForm,
   loginUserForm,
-  userProfile,
   addCategoryAddTags,
 };
