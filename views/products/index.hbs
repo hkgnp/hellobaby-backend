@@ -27,17 +27,15 @@
   <table data-toggle="table" class="table">
     <thead>
       <tr>
-        <th>Preview</th>
+        {{!-- <th>Preview</th> --}}
         <th data-sortable="true">Date Added</th>
         <th data-sortable="true">Name</th>
         <th data-sortable="true">Description</th>
         <th data-sortable="true">Cost (in cents)</th>
         <th data-sortable="true">Company</th>
-        <th data-sortable="true">Size</th>
+        <th data-sortable="true">Specifications</th>
         <th data-sortable="true">Stock</th>
-        <th data-sortable="true">Local</th>
-        <th data-sortable="true">Organic/ Natural</th>
-        <th data-sortable="true">Free Delivery</th>
+        <th data-sortable="true">Attributes</th>
         <th data-sortable="true">Category</th>
         <th data-sortable="true">Tags</th>
         <th data-sortable="true">Actions</th>
@@ -46,41 +44,42 @@
     <tbody>
       {{#each products}}
       <tr>
-        <td><span>
+        {{!-- <td><span>
           {{#if this.thumbnail_url}}
           <img class="img-fluid" src="{{ this.thumbnail_url }}" />
           {{/if}}
-        </span></td>
+        </span></td> --}}
         <td class="td-content"><span>{{ dateFormat this.date_added format='DD-MM-YYYY' }}</span></td>
         <td class="td-content"><span>{{ this.name }}</span></td>
         <td class="td-content"><span>{{ this.description }}</span></td>
         <td class="td-content"><span>{{ this.cost }}</span></td>
         <td class="td-content"><span>{{ this.company }}</span></td>
-        <td class="td-content"><span>{{ this.size }}</span></td>
+        <td class="td-content"><span>{{ this.specs }}</span></td>
         <td class="td-content"><span>{{ this.stock }}</span></td>
-        <td class="td-content"><span>{{ this.local }}</span></td>
-        <td class="td-content"><span>{{ this.organic_natural }}</span></td>
-        <td class="td-content"><span>{{ this.free_delivery }}</span></td>
+        <td><span>
+          {{#if_eq this.local "1"}}<span class="badge badge-pill badge-warning">Local</span>{{else}}Overseas{{/if_eq}} 
+          {{#if_eq this.organic_natural "1"}}<span class="badge badge-pill badge-warning">Org/Nat</span>{{else}}{{/if_eq}} 
+          {{#if_eq this.free_delivery "1"}}<span class="badge badge-pill badge-warning">Free deliv</span>{{else}}{{/if_eq}}</span></td>
         <td class="td-content"><span>{{ this.category.category_name }}</span></td>
         <td><span>
           {{#each this.tags}}
           <span class="badge badge-pill badge-info">{{ this.tag_name }}</span>
           {{/each}}
         </span></td>
-        <td class="td-content"><span>
+        <td><div class="d-flex flex-column">
           <a
             href="/products/{{ this.id }}/update"
             class="btn btn-primary btn-sm"
             >Update</a
           ><a
             href="/products/{{ this.id }}/delete"
-            class="btn btn-danger ml-2 btn-sm"
+            class="btn btn-danger btn-sm"
             >Delete</a
           >
-          <a href="/cart/{{ this.id }}/add" class="btn btn-primary ml-2 btn-sm"
+          <a href="/cart/{{ this.id }}/add" class="btn btn-dark btn-sm"
             >Add to Cart</a
           >
-        </span></td>
+        </div></td>
       </tr>
       {{/each}}
     </tbody>

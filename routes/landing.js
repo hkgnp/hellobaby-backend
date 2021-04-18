@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('landing/welcome');
+  res.redirect('products');
 });
 
 router.get('/about-us', (req, res) => {

@@ -3,7 +3,9 @@ const { Order } = require('../models');
 const router = express.Router();
 const getOrderDataLayer = require('../dal/orders');
 
-router.get('/', async (req, res) => {
+const { checkIfLoggedIn } = require('../middleware');
+
+router.get('/', checkIfLoggedIn, async (req, res) => {
   const allUsers = await getOrderDataLayer.getAllUsers();
   const allStatuses = await getOrderDataLayer.getAllStatuses();
   allStatuses.unshift([0, 'Select a Status']);

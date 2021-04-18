@@ -35,6 +35,11 @@ hbs.registerHelper('dateFormat', function (date, options) {
   return moment(date).format(formatToUse);
 });
 
+hbs.registerHelper('if_eq', function (a, b, options) {
+  if (a === b) return options.fn(this);
+  else return options.inverse(this);
+});
+
 // enable forms
 app.use(
   express.urlencoded({

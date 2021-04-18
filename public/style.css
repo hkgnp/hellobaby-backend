@@ -1,12 +1,17 @@
+.navbar .active {
+  border: 1px solid white;
+  border-radius: 15px;
+}
+
+.navbar .active:hover {
+  border: 1px solid white;
+  color: #000000;
+  background-color: #6e6e6b;
+}
+
 .table {
   table-layout: fixed;
 }
-
-/* .table td {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
 
 table td.td-content {
   max-width: 10px;
@@ -20,6 +25,7 @@ table td.td-content span {
   max-width: 100%;
 }
 table td.td-content:hover span {
+  font-size: 13px;
   background-color: #3b3636;
   border-radius: 15px;
   overflow: visible;

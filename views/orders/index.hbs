@@ -10,8 +10,10 @@
     <thead>
       <tr>
         <th data-sortable="true">Order ID</th>
-        <th data-sortable="true">Customer Name</th>
-        <th data-sortable="true">Customer Email</th>
+        <th data-sortable="true">Name</th>
+        <th data-sortable="true">Email</th>
+        <th data-sortable="true">Address</th>
+        <th data-sortable="true">Postal Code</th>
         <th data-sortable="true">Order Status</th>
         <th>Actions</th>
       </tr>
@@ -22,6 +24,8 @@
         <td>{{ order_id }}</td>
         <td>{{ user.username }}</td>
         <td>{{ user.email }}</td>
+        <td>{{ user.address }}</td>
+        <td>{{ user.postal_code }}</td>
         <td>{{ status.name }}</td>
         <td>
           <button

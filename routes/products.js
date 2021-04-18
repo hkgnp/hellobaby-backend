@@ -217,7 +217,7 @@ router.get('/:product_id/update', checkIfLoggedIn, async (req, res) => {
     description,
     cost,
     company,
-    size,
+    specs,
     stock,
     local,
     organic_natural,
@@ -231,7 +231,7 @@ router.get('/:product_id/update', checkIfLoggedIn, async (req, res) => {
   description.value = productToEdit.get('description');
   cost.value = productToEdit.get('cost');
   company.value = productToEdit.get('company');
-  size.value = productToEdit.get('size');
+  specs.value = productToEdit.get('specs');
   stock.value = productToEdit.get('stock');
   local.value = productToEdit.get('local');
   organic_natural.value = productToEdit.get('organic_natural');

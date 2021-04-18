@@ -69,7 +69,8 @@ const createProductForm = (categories, tags, yesNo) => {
         label: ['form-label'],
       },
     }),
-    size: fields.string({
+    specs: fields.string({
+      label: 'Specifications',
       required: true,
       errorAfterField: true,
       cssClasses: {
