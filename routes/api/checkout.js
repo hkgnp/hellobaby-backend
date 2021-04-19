@@ -48,7 +48,6 @@ router.get('/:user_id', async (req, res) => {
   //3. Register payment
   let stripeSession = await stripe.checkout.sessions.create(payment);
 
-  //4. Send payment session ID to HBS file and use JS to redirect
   res.send({
     sessionId: stripeSession.id,
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
