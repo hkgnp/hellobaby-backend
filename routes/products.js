@@ -265,7 +265,7 @@ router.post('/:product_id/update', async (req, res) => {
     success: async (form) => {
       const { tags, ...productData } = form.data;
       productToEdit.set(productData);
-      productToEdit.save();
+      await productToEdit.save();
 
       // Update tags
       const newTagsId = tags.split(',');

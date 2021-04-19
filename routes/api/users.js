@@ -3,6 +3,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
+const getUserDataLayer = require('../../dal/users');
+
 // import the User model
 const { User, BlacklistedToken } = require('../../models');
 const { checkIfLoggedInJWT } = require('../../middleware');
@@ -23,11 +25,7 @@ const getHashedPassword = (password) => {
 router.post('/register', async (req, res) => {
   let { ...userData } = req.body;
 
-  let user = await User.where({
-    email: userData.email,
-  }).fetch({
-    require: false,
-  });
+  let user = await getUserDataLayer.getUserByEmail(userData.email);
 
   if (user) {
     res.status(400);
@@ -88,17 +86,28 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/profile', checkIfLoggedInJWT, async (req, res) => {
-  let user = await User.where({
-    email: req.user.email,
-  }).fetch({
-    require: false,
-  });
+  let user = await getUserDataLayer.getUserByEmail(req.user.email);
 
   let { password, ...userDetails } = user.toJSON();
-  console.log(userDetails);
 
   res.send({
     user: userDetails,
+  });
+});
+
+router.post('/updateprofile', async (req, res) => {
+  let userData = { ...req.body };
+  let user = await getUserDataLayer.getUserByEmail(userData.email);
+
+  if (user) {
+    user.set(userData, { patch: true });
+    await user.save();
+  } else {
+    return null;
+  }
+
+  res.send({
+    message: 'Profile updated successfully',
   });
 });
 
