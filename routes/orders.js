@@ -34,4 +34,13 @@ router.get('/updatestatus/:order_id/:new_status', async (req, res) => {
   res.redirect('/orders');
 });
 
+router.get('/remove/:order_id', async (req, res) => {
+  let order = await getOrderDataLayer.getOrderById(req.params.order_id);
+
+  await order.destroy();
+
+  req.flash('success_messages', 'Order has been removed successfully');
+  res.redirect('/orders');
+});
+
 module.exports = router;

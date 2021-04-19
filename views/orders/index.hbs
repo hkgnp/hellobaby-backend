@@ -28,6 +28,7 @@
         <td class="td-content"><span>{{ user.postal_code }}</span></td>
         <td class="td-content"><span>{{ status.name }}</span></td>
         <td>
+          <div class="d-flex flex-column">
           <button
             class="btn btn-sm btn-primary m–0"
             name="{{ order_id }}"
@@ -36,6 +37,8 @@
             Update Status
           </button>
           <span id="{{ order_id }}"></span>
+          <button class="btn btn-danger btn-sm" name="{{ order_id }}" onclick="removeOrder(this)">Delete Order</button>
+          </div>
         </td>
       </tr>
       {{/each}}
@@ -73,9 +76,13 @@
     let orderId = e.name;
     let newStatus = e.value;
     window.location.href = `/orders/updatestatus/${orderId}/${newStatus}`;
-
-    // alert('Status updated successfully');
   };
+
+  const removeOrder = (e) => {
+    let orderId = e.name;
+    window.location.href = `/orders/remove/${orderId}`
+  }
+
 </script>
 {{/block}}
 
