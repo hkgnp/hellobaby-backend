@@ -91,20 +91,20 @@
             <li class="nav-item">
               <a class="nav-link" href="/contact-us">Contact</a>
             </li>
-          </ul>
-          {{#if user}}
-          <a href="/cart" class="mr-3"
-            ><i
+                        <li class="nav-item">
+              <a class="nav-link" href="/cart"><i
               class="fas fa-shopping-cart"
               style="font-size: 20px; color: yellow"
             ></i
-          ></a>
-          <a
-            href="/users/profile"
+          > Test Order Checkout</a>
+            </li>
+          </ul>
+          {{#if user}}
+          <button
             class="btn btn-outline-warning btn-sm my-2 mr-2"
           >
-            {{ user.username }}
-          </a>
+            Admin: {{ user.username }}
+          </button>
           <a href="/users/logout" class="btn btn-danger btn-sm my-2 my-0">
             Logout
           </a>
