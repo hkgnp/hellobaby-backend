@@ -119,6 +119,7 @@ const api = {
   users: require('./routes/api/users'),
   cart: require('./routes/api/cart'),
   checkout: require('./routes/api/checkout'),
+  orders: require('./routes/api/orders'),
 };
 
 const landingRoutes = require('./routes/landing');
@@ -141,6 +142,7 @@ const orderRoutes = require('./routes/orders');
   app.use('/api/users', express.json(), api.users);
   app.use('/api/cart', express.json(), api.cart);
   app.use('/api/checkout', express.json(), api.checkout);
+  app.use('/api/orders', express.json(), api.orders);
 })();
 
 // Set server port
