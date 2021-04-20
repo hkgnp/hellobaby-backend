@@ -31,13 +31,25 @@ exports.up = function (db) {
         },
       },
     },
-    order_id: {
+    user_id: {
       type: 'int',
       unsigned: true,
       foreignKey: {
-        name: 'order_items_orderid',
-        table: 'products',
+        name: 'order_items_userid',
+        table: 'users',
         mapping: 'id',
+        rules: {
+          onDelete: 'cascade',
+          onUpdate: 'restrict',
+        },
+      },
+    },
+    order_id: {
+      type: 'string',
+      foreignKey: {
+        name: 'order_items_orderid',
+        table: 'orders',
+        mapping: 'order_id',
         rules: {
           onDelete: 'cascade',
           onUpdate: 'restrict',
