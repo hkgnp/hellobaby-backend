@@ -3,6 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 
 const CartServices = require('../../services/cart_services');
+const OrderServices = require('../../services/order_services');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -47,6 +48,18 @@ router.get('/:user_id', async (req, res) => {
   };
   //3. Register payment
   let stripeSession = await stripe.checkout.sessions.create(payment);
+
+  // 3a. Create order when stripe session is created.
+  const { id, metadata } = stripeSession;
+  const orderId = id;
+  const userId = metadata.user_id;
+  const statusId = 6;
+
+  // Maybe implemented at a later date.
+  const orders = metadata.orders;
+
+  let order = await new OrderServices(userId);
+  order.addOrder(orderId, userId, statusId);
 
   res.send({
     sessionId: stripeSession.id,
