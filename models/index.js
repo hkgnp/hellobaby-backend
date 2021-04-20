@@ -108,6 +108,7 @@ module.exports = {
   Role,
   CartItem,
   Order,
+  OrderItem,
   Status,
   BlacklistedToken,
 };

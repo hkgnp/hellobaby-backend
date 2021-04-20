@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const CartServices = require('../../services/cart_services');
 const OrderServices = require('../../services/order_services');
+const getOrderDataLayer = require('../../dal/orders');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -60,6 +61,11 @@ router.get('/:user_id', async (req, res) => {
 
   let order = await new OrderServices(userId);
   order.addOrder(orderId, userId, statusId);
+
+  let idFromOrdersTable = await getOrderDataLayer.getIdByOrderId(orderId);
+
+  let orderItemsToAdd = await new OrderServices(userId);
+  orderItemsToAdd.addOrderItems(userId, idFromOrdersTable, orders);
 
   res.send({
     sessionId: stripeSession.id,

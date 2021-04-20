@@ -1,4 +1,4 @@
-const { Order } = require('../models');
+const { Order, OrderItem } = require('../models');
 
 class OrderServices {
   constructor(user_id) {
@@ -11,12 +11,27 @@ class OrderServices {
       user_id: userId,
       status_id: statusId,
     });
-
     await orderItem.save();
     return orderItem;
   };
 
-  addOrderItems = async (orderId, orders) => {};
+  addOrderItems = async (userId, orderId, orders) => {
+    const ordersObject = JSON.parse(orders);
+
+    for (let o of ordersObject) {
+      let orderItem = new OrderItem({
+        order_id: orderId,
+        user_id: userId,
+        product_id: o.product_id,
+        quantity: o.quantity,
+      });
+      orderItem.save();
+    }
+
+    // newOrderItems.set(orderItemsToAdd);
+    // await newOrderItems.save();
+    // return newOrderItems;
+  };
 }
 
 module.exports = OrderServices;

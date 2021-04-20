@@ -35,4 +35,20 @@ const getOrderByUser = async (userId) => {
     });
 };
 
-module.exports = { getAllStatuses, getAllUsers, getOrderById, getOrderByUser };
+const getIdByOrderId = async (orderId) => {
+  let order = await Order.collection()
+    .where({
+      order_id: orderId,
+    })
+    .fetch({ require: false });
+
+  return order.toJSON()[0].id;
+};
+
+module.exports = {
+  getAllStatuses,
+  getAllUsers,
+  getOrderById,
+  getOrderByUser,
+  getIdByOrderId,
+};

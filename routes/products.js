@@ -159,7 +159,7 @@ router.post('/create', async (req, res) => {
   productForm.handle(req, {
     success: async (form) => {
       let { tags, ...productData } = form.data;
-      console.log(form.data);
+
       // Use the product moodel to save a new instance of Product
       const newProduct = new Product();
       newProduct.set(productData);
