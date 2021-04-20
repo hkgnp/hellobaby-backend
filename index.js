@@ -28,16 +28,22 @@ require('handlebars-helpers')({
 });
 
 // date time
-hbs.registerHelper('dateFormat', function (date, options) {
+hbs.registerHelper('dateFormat', (date, options) => {
   const formatToUse =
     (arguments[1] && arguments[1].hash && arguments[1].hash.format) ||
     'DD/MM/YYYY';
   return moment(date).format(formatToUse);
 });
 
-hbs.registerHelper('if_eq', function (a, b, options) {
+// if equal function hbs helper
+hbs.registerHelper('if_eq', (a, b, options) => {
   if (a === b) return options.fn(this);
   else return options.inverse(this);
+});
+
+// derive cost from cents to dollars
+hbs.registerHelper('derive_cost', (a, b) => {
+  return a / b;
 });
 
 // enable forms

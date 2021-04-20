@@ -138,7 +138,7 @@ router.post('/login', (req, res) => {
             'success_messages',
             `Welcome back ${req.session.user.username}`
           );
-          res.redirect('/products');
+          res.redirect('/orders');
         } else {
           req.flash(
             'error_messages',

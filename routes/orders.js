@@ -35,7 +35,7 @@ router.get('/updatestatus/:order_id/:new_status', async (req, res) => {
 });
 
 router.get('/remove/:order_id', async (req, res) => {
-  let order = await getOrderDataLayer.getOrderById(req.params.order_id);
+  const order = await getOrderDataLayer.getOrderById(req.params.order_id);
 
   await order.destroy();
 
@@ -57,6 +57,18 @@ router.get('/orderitems/:order_id', async (req, res) => {
   res.render('orders/orderitems', {
     orderItems: orderItems,
     orderId: orderItems[0].orders.order_id,
+  });
+
+  router.get('/orderitems/remove/:item_id', async (req, res) => {
+    const order = await getOrderDataLayer.getOrderItemById(req.params.item_id);
+
+    await order.destroy();
+
+    req.flash(
+      'success_messages',
+      'Item has been removed from order successfully'
+    );
+    res.redirect('back');
   });
 });
 

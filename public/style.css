@@ -9,6 +9,12 @@
   background-color: #6e6e6b;
 }
 
+.image-preview {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
 .table {
   table-layout: fixed;
 }

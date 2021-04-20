@@ -60,12 +60,12 @@ router.get('/:user_id', async (req, res) => {
   const orders = metadata.orders;
 
   let order = await new OrderServices(userId);
-  order.addOrder(orderId, userId, statusId);
+  await order.addOrder(orderId, userId, statusId);
 
   let idFromOrdersTable = await getOrderDataLayer.getIdByOrderId(orderId);
 
   let orderItemsToAdd = await new OrderServices(userId);
-  orderItemsToAdd.addOrderItems(userId, idFromOrdersTable, orders);
+  await orderItemsToAdd.addOrderItems(userId, idFromOrdersTable, orders);
 
   res.send({
     sessionId: stripeSession.id,

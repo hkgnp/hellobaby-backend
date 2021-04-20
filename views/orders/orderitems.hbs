@@ -10,27 +10,32 @@
     <table data-toggle="table" class="table">
         <thead>
             <tr>
-                <th data-sortable="true">Order ID</th>
+                <th data-sortable="true">ID</th>
+                <th>Preview</th>
                 <th data-sortable="true">Item Name</th>
+                <th data-sortable="true">Cost</th>
                 <th data-sortable="true">Quantity</th>
                 <th data-sortable="true">Customer Name</th>
                 <th data-sortable="true">Customer Contact</th>
-                <th>Actions</th>
+                <th data-sortable="true">Customer Address</th>
+                <th data-sortable="true">Customer Postal Code</th>
+                <th data-sortable="true">To Note</th>
             </tr>
         </thead>
         <tbody>
             {{#each orderItems}}
             <tr>
-                <td class="td-content"><span>{{ this.orders.order_id }}</span></td>
+                <td>{{ this.id }}</td>
+                <td><img class="image-preview m-0 p-0" src="{{ this.products.thumbnail_url}}" alt="preview image" /></td>
                 <td class="td-content"><span>{{ this.products.name}}</span></td>
+                <td class="td-content"><span>${{#derive_cost this.products.cost 100}}{{/derive_cost}}</span></td>
                 <td class="td-content"><span>{{ this.quantity }}</span></td>
                 <td class="td-content"><span>{{ this.users.username }}</span></td>
                 <td class="td-content"><span>{{ this.users.contact }}</span></td>
-                <td>
-                    <div class="d-flex flex-column">
-                        <a class="btn btn-danger btn-sm" name="{{ this.id }}">Delete Item from Order</a>
-                    </div>
+                <td class="td-content"><span>{{ this.users.address }}</span></td>
+                <td class="td-content"><span>{{ this.users.postal_code }}</span></td>
                 </td>
+                <td><span>{{#if_eq this.products.free_delivery "1"}}<span class="badge badge-pill badge-warning">Free delivery</span>{{else}}{{/if_eq}}</span></td>
             </tr>
             {{/each}}
         </tbody>

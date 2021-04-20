@@ -1,4 +1,4 @@
-const { Status, User, Order } = require('../models');
+const { Status, User, Order, OrderItem } = require('../models');
 
 const getAllStatuses = async () => {
   const fetchStatuses = await Status.fetchAll();
@@ -41,8 +41,13 @@ const getIdByOrderId = async (orderId) => {
       order_id: orderId,
     })
     .fetch({ require: false });
+  return await order.toJSON()[0].id;
+};
 
-  return order.toJSON()[0].id;
+const getOrderItemById = async (orderItemId) => {
+  return await OrderItem.where({
+    id: orderItemId,
+  }).fetch({ require: false });
 };
 
 module.exports = {
@@ -51,4 +56,5 @@ module.exports = {
   getOrderById,
   getOrderByUser,
   getIdByOrderId,
+  getOrderItemById,
 };
