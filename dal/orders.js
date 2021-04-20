@@ -25,12 +25,14 @@ const getOrderById = async (orderId) => {
 };
 
 const getOrderByUser = async (userId) => {
-  return await Order.where({
-    user_id: userId,
-  }).fetch({
-    withRelated: ['status'],
-    require: false,
-  });
+  return await Order.collection()
+    .where({
+      user_id: userId,
+    })
+    .fetch({
+      withRelated: ['status'],
+      require: false,
+    });
 };
 
 module.exports = { getAllStatuses, getAllUsers, getOrderById, getOrderByUser };

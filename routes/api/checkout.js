@@ -57,6 +57,7 @@ router.get('/:user_id', async (req, res) => {
 
   // Maybe implemented at a later date.
   const orders = metadata.orders;
+  console.log(orders);
 
   let order = await new OrderServices(userId);
   order.addOrder(orderId, userId, statusId);

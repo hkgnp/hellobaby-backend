@@ -15,6 +15,8 @@ class OrderServices {
     await orderItem.save();
     return orderItem;
   };
+
+  addOrderItems = async (orderId, orders) => {};
 }
 
 module.exports = OrderServices;
