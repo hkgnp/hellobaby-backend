@@ -1,3 +1,4 @@
+const getOrderDataLayer = require('../dal/orders');
 const { Order } = require('../models');
 
 class OrderServices {

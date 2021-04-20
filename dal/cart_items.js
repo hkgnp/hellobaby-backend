@@ -20,7 +20,7 @@ const getCartItemByUserAndProduct = async (userId, productId) => {
   });
 };
 
-removeItem = async (userId, productId) => {
+const removeItem = async (userId, productId) => {
   const item = await getCartItemByUserAndProduct(userId, productId);
   if (item) {
     item.destroy();

@@ -5,9 +5,11 @@ const bodyParser = require('body-parser');
 const CartServices = require('../services/cart_services');
 const OrderServices = require('../services/order_services');
 
+const getOrderDataLayer = require('../dal/orders');
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-router.get('/', async (req, res) => {
+router.get('/:user_id', async (req, res) => {
   //1. Create line items = tell Stripe what customer is paying for
   let cartServices = new CartServices(req.session.user.id);
   const allCartItems = await cartServices.getAll();
@@ -43,10 +45,23 @@ router.get('/', async (req, res) => {
     cancel_url: process.env.STRIPE_ERROR_URL,
     metadata: {
       orders: metaData,
+      user_id: req.params.user_id,
     },
   };
   //3. Register payment
   let stripeSession = await stripe.checkout.sessions.create(payment);
+
+  // 3a. Create order when stripe session is created.
+  const { id, metadata } = stripeSession;
+  const orderId = id;
+  const userId = metadata.user_id;
+  const statusId = 6;
+
+  // Maybe implemented at a later date.
+  const orders = metadata.orders;
+
+  let order = await new OrderServices(userId);
+  order.addOrder(orderId, userId, statusId);
 
   //4. Send payment session ID to HBS file and use JS to redirect
   res.render('cart/checkout', {
@@ -70,16 +85,12 @@ router.post(
         endpointSecret
       );
       if (event.type === 'checkout.session.completed') {
-        console.log(event.data.object);
-        const { id, metadata } = event.data.object;
-
-        const orderId = id;
-        const userId = metadata.user_id;
-        const statusId = 2;
-        const orders = metadata.orders;
-
-        let order = await new OrderServices(userId);
-        order.addOrder(orderId, userId, statusId);
+        const orderToUpdate = await getOrderDataLayer.getOrderById(
+          event.data.object.id
+        );
+        orderToUpdate.set('status_id', 7);
+        await orderToUpdate.save();
+        return orderToUpdate;
       }
     } catch (e) {
       res.send({
