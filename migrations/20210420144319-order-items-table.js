@@ -45,11 +45,12 @@ exports.up = function (db) {
       },
     },
     order_id: {
-      type: 'string',
+      type: 'int',
+      unsigned: true,
       foreignKey: {
         name: 'order_items_orderid',
         table: 'orders',
-        mapping: 'order_id',
+        mapping: 'id',
         rules: {
           onDelete: 'cascade',
           onUpdate: 'restrict',
