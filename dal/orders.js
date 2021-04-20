@@ -28,6 +28,7 @@ const getOrderByUser = async (userId) => {
   return await Order.where({
     user_id: userId,
   }).fetch({
+    withRelated: ['status'],
     require: false,
   });
 };
