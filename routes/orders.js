@@ -1,5 +1,5 @@
 const express = require('express');
-const { Order } = require('../models');
+const { Order, OrderItem } = require('../models');
 const router = express.Router();
 const getOrderDataLayer = require('../dal/orders');
 
@@ -41,6 +41,23 @@ router.get('/remove/:order_id', async (req, res) => {
 
   req.flash('success_messages', 'Order has been removed successfully');
   res.redirect('/orders');
+});
+
+router.get('/orderitems/:order_id', async (req, res) => {
+  const allOrderItems = await OrderItem.collection()
+    .where({
+      order_id: req.params.order_id,
+    })
+    .fetch({
+      withRelated: ['products', 'users', 'orders'],
+    });
+
+  const orderItems = allOrderItems.toJSON();
+
+  res.render('orders/orderitems', {
+    orderItems: orderItems,
+    orderId: orderItems[0].orders.order_id,
+  });
 });
 
 module.exports = router;

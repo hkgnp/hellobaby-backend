@@ -19,7 +19,7 @@ const Product = bookshelf.model('Product', {
     return this.belongsTo('User');
   },
   orderitems() {
-    return this.belongsToMany('OrderItem');
+    return this.hasMany('OrderItem');
   },
 });
 
@@ -50,6 +50,9 @@ const User = bookshelf.model('User', {
   role() {
     return this.belongsTo('Role');
   },
+  orderitems() {
+    return this.hasMany('OrderItem');
+  },
 });
 
 const Role = bookshelf.model('Role', {
@@ -75,7 +78,7 @@ const Order = bookshelf.model('Order', {
     return this.belongsTo('User');
   },
   orderitems() {
-    return this.belongsToMany('OrderItem');
+    return this.hasMany('OrderItem');
   },
 });
 
@@ -89,10 +92,13 @@ const Status = bookshelf.model('Status', {
 const OrderItem = bookshelf.model('OrderItem', {
   tableName: 'order_items',
   products() {
-    return this.belongsToMany('Product');
+    return this.belongsTo('Product');
   },
   orders() {
-    return this.belongsToMany('Order');
+    return this.belongsTo('Order');
+  },
+  users() {
+    return this.belongsTo('User');
   },
 });
 

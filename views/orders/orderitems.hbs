@@ -1,0 +1,43 @@
+{{#extends 'base'}}
+
+{{#block 'title'}} Order Items {{/block}}
+
+{{#block 'content'}}
+<h1>Order Items for: </h1>
+<h3><span class="badge badge-warning pl-2 mb-3">{{ orderId }}</span></h3>
+
+<div class="table-dark">
+    <table data-toggle="table" class="table">
+        <thead>
+            <tr>
+                <th data-sortable="true">Order ID</th>
+                <th data-sortable="true">Item Name</th>
+                <th data-sortable="true">Quantity</th>
+                <th data-sortable="true">Customer Name</th>
+                <th data-sortable="true">Customer Contact</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each orderItems}}
+            <tr>
+                <td class="td-content"><span>{{ this.orders.order_id }}</span></td>
+                <td class="td-content"><span>{{ this.products.name}}</span></td>
+                <td class="td-content"><span>{{ this.quantity }}</span></td>
+                <td class="td-content"><span>{{ this.users.username }}</span></td>
+                <td class="td-content"><span>{{ this.users.contact }}</span></td>
+                <td>
+                    <div class="d-flex flex-column">
+                        <a class="btn btn-danger btn-sm" name="{{ this.id }}">Delete Item from Order</a>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+{{/block}}
+
+{{/extends}}
