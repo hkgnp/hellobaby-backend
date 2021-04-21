@@ -152,7 +152,10 @@ const orderRoutes = require('./routes/orders');
 })();
 
 // Set server port
-const portNumber = 7000;
-app.listen(process.env.PORT || portNumber, () =>
-  console.log('Server is running on port ' + portNumber)
-);
+// const portNumber = 7000;
+// app.listen(process.env.PORT || portNumber, () =>
+//   console.log('Server is running on port ' + portNumber)
+// );
+app.listen(process.env.PORT, () => {
+  console.log('Server has started');
+});
