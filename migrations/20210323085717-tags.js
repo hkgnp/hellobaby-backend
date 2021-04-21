@@ -15,10 +15,9 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
-  return db.createTable('orders', {
-    id: { type: 'int', primaryKey: true, unSigned: true, autoIncrement: true },
-    order_id: { type: 'string', length: 200 },
-    user_id: { type: 'int' },
+  return db.createTable('tags', {
+    id: { type: 'int', primaryKey: true, autoIncrement: true },
+    name: { type: 'string', length: 100 },
   });
 };
 
