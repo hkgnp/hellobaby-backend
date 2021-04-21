@@ -65,7 +65,6 @@ router.get('/', async (req, res) => {
         min_cost,
         max_cost,
         description,
-        date,
         min_stock,
         max_stock,
         height,
@@ -88,10 +87,6 @@ router.get('/', async (req, res) => {
 
       if (description) {
         q = q.where('description', 'like', `%${description}%`);
-      }
-
-      if (date) {
-        q = q.where('description', '=', `%${description}%`);
       }
 
       if (min_stock) {

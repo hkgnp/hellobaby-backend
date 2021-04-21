@@ -152,14 +152,14 @@ const createProductForm = (categories, tags, yesNo) => {
 
 const createProductSearchForm = (categories, tags) => {
   return forms.create({
-    date: fields.date({
-      required: false,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-      widget: widgets.date(),
-    }),
+    // date: fields.date({
+    //   required: false,
+    //   errorAfterField: true,
+    //   cssClasses: {
+    //     label: ['form-label'],
+    //   },
+    //   widget: widgets.date(),
+    // }),
     name: fields.string({
       required: false,
       errorAfterField: true,

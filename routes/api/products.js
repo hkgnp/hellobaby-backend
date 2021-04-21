@@ -13,6 +13,27 @@ router.get('/', async (req, res) => {
   res.send(allProducts);
 });
 
+router.get('/search', async (req, res) => {
+  let searchQuery = req.query.search;
+
+  // let q = Product.collection().where('description', 'like', `%${searchQuery}%`);
+
+  let q = Product.collection().query((qb) => {
+    qb.where('description', 'like', `%${searchQuery}%`).orWhere(
+      'name',
+      'like',
+      `%${searchQuery}%`
+    );
+  });
+
+  const allProducts = await q.fetch({
+    withRelated: ['category', 'tags'],
+  });
+
+  console.log(allProducts);
+  res.send(allProducts);
+});
+
 router.get('/:product_id', async (req, res) => {
   const productById = await getProductDataLayer.getProductById(
     req.params.product_id
