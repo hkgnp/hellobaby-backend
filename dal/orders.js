@@ -30,7 +30,7 @@ const getOrderByUser = async (userId) => {
       user_id: userId,
     })
     .fetch({
-      withRelated: ['status', 'orderitems'],
+      withRelated: ['status', 'orderitems', 'products'],
       require: false,
     });
 };

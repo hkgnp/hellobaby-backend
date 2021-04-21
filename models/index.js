@@ -21,6 +21,9 @@ const Product = bookshelf.model('Product', {
   orderitems() {
     return this.hasMany('OrderItem');
   },
+  orders() {
+    return this.belongsToMany('Order').through('OrderItem');
+  },
 });
 
 const Category = bookshelf.model('Category', {
@@ -79,6 +82,9 @@ const Order = bookshelf.model('Order', {
   },
   orderitems() {
     return this.hasMany('OrderItem');
+  },
+  products() {
+    return this.belongsToMany('Product').through('OrderItem');
   },
 });
 
