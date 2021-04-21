@@ -30,7 +30,6 @@ router.get('/search', async (req, res) => {
     withRelated: ['category', 'tags'],
   });
 
-  console.log(allProducts);
   res.send(allProducts);
 });
 
