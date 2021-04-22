@@ -73,6 +73,38 @@ router.get('/:user_id', async (req, res) => {
   });
 });
 
+router.post(
+  '/process_payment',
+  bodyParser.raw({ type: 'application/json' }),
+  async (req, res) => {
+    let payload = req.body;
+    let endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
+    let sigHeader = req.headers['stripe-signature'];
+    let event;
+    try {
+      event = stripe.webhooks.constructEvent(
+        payload,
+        sigHeader,
+        endpointSecret
+      );
+      if (event.type === 'checkout.session.completed') {
+        const orderToUpdate = await getOrderDataLayer.getOrderById(
+          event.data.object.id
+        );
+        orderToUpdate.set('status_id', 7);
+        await orderToUpdate.save();
+        return orderToUpdate;
+      }
+    } catch (e) {
+      res.send({
+        error: e.message,
+      });
+      console.log(e.message);
+    }
+    res.sendStatus(200);
+  }
+);
+
 // Route to clear cart
 router.get('/success/:user_id', async (req, res) => {
   // Remove items after successful checkout
