@@ -99,6 +99,9 @@ router.post(
       console.log(e.message);
     }
     res.sendStatus(200);
+    res.send({
+      message: 'Webhook received successfully',
+    });
   }
 );
 
