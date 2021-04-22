@@ -29,15 +29,16 @@ router.get('/:user_id', async (req, res) => {
     }
     lineItems.push(lineItem);
 
+    getOrderDataLayer.updateStockAfterCheckoutSuccessful(
+      cartItem.get('product_id'),
+      cartItem.get('quantity')
+    );
+
     // Keep track of each product's quantity purchase
     meta.push({
       product_id: cartItem.get('product_id'),
       quantity: cartItem.get('quantity'),
     });
-
-    await getOrderDataLayer.updateStockAfterCheckoutSuccessful(
-      cartItem.get('product_id', cartItem.get('quantity'))
-    );
   }
 
   //2. Use Stripe to create payment
@@ -53,6 +54,7 @@ router.get('/:user_id', async (req, res) => {
       user_id: req.params.user_id,
     },
   };
+
   //3. Register payment
   let stripeSession = await stripe.checkout.sessions.create(payment);
 
