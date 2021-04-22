@@ -256,7 +256,7 @@ const createProductSearchForm = (categories, tags) => {
 
 const createUserForm = () => {
   return forms.create({
-    role_id: fields.string({
+    role_id: fields.number({
       label: 'Role',
       required: true,
       errorAfterField: true,
