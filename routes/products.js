@@ -205,7 +205,7 @@ router.get('/:product_id/update', checkIfLoggedIn, async (req, res) => {
 
   const yesNo = await getProductDataLayer.getYesNo();
 
-  const form = createProductForm(allCategories, allTags, yesNo);
+  const form = updateProductForm(allCategories, allTags, yesNo);
   const {
     date_added,
     name,
