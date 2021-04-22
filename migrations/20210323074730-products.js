@@ -18,10 +18,10 @@ exports.up = function (db) {
   return db.createTable('products', {
     id: { type: 'int', unsigned: true, primaryKey: true, autoIncrement: true },
     name: { type: 'string', length: 100 },
-    description: { type: 'string', length: 800 },
+    description: { type: 'string', length: 8000 },
     cost: { type: 'int' },
     company: { type: 'string', length: 100 },
-    size: { type: 'string', length: 100 },
+    specs: { type: 'string', length: 8000 },
     stock: { type: 'int' },
     local: { type: 'string', length: 5 },
     organic_natural: { type: 'string', length: 5 },
