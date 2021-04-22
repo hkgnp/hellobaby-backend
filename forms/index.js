@@ -254,7 +254,7 @@ const updateProductForm = (categories, tags, yesNo) => {
       choices: tags,
     }),
     img_url: fields.string({
-      required: false,
+      required: true,
       errorAfterField: true,
       widget: widgets.hidden(),
     }),
