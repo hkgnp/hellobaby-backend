@@ -14,16 +14,13 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/search', async (req, res) => {
-  let searchQuery = req.query.search;
-
-  // let q = Product.collection().where('description', 'like', `%${searchQuery}%`);
+  let searchQuery = req.query.search.toLowerCase();
 
   let q = Product.collection().query((qb) => {
-    qb.where('description', 'like', `%${searchQuery}%`).orWhere(
-      'name',
-      'like',
-      `%${searchQuery}%`
-    );
+    qb.where('description', 'like', `%${searchQuery}%`)
+      .orWhere('name', 'like', `%${searchQuery}%`)
+      .orWhere('company', 'like', `%${searchQuery}%`)
+      .orWhere('specs', 'like', `%${searchQuery}%`);
   });
 
   const allProducts = await q.fetch({
