@@ -15,13 +15,12 @@ router.get('/', async (req, res) => {
 
 router.get('/search', async (req, res) => {
   let searchQuery = req.query.search.toLowerCase();
-  console.log(searchQuery);
 
   let q = Product.collection().query((qb) => {
-    qb.where('description', 'like', `%${searchQuery}%`)
-      .orWhere('name', 'like', `%${searchQuery}%`)
-      .orWhere('company', 'like', `%${searchQuery}%`)
-      .orWhere('specs', 'like', `%${searchQuery}%`);
+    qb.where('description', 'ilike', `%${searchQuery}%`)
+      .orWhere('name', 'ilike', `%${searchQuery}%`)
+      .orWhere('company', 'ilike', `%${searchQuery}%`)
+      .orWhere('specs', 'ilike', `%${searchQuery}%`);
   });
 
   const allProducts = await q.fetch({
