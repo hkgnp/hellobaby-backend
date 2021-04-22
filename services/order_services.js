@@ -1,4 +1,5 @@
 const { Order, OrderItem } = require('../models');
+const getProductDataLayer = require('../dal/products');
 
 class OrderServices {
   constructor(user_id) {
@@ -27,6 +28,17 @@ class OrderServices {
       });
       orderItem.save();
     }
+  };
+
+  updateStockAfterCheckoutSuccessful = async (productId, quantityPurchased) => {
+    const productToUpdate = await getProductDataLayer.getProductById(productId);
+
+    productToUpdate.set(
+      'stock',
+      productToUpdate.get('stock') - quantityPurchased
+    );
+
+    await productToUpdate.save();
   };
 }
 

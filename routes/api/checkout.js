@@ -22,11 +22,20 @@ router.get('/:user_id', async (req, res) => {
       quantity: cartItem.get('quantity'),
       currency: 'SGD',
     };
+
     // Check if the related product has an image
     if (cartItem.related('products').get('image_url')) {
       lineItem.images = [cartItem.related('product').get('image_url')];
     }
     lineItems.push(lineItem);
+
+    // Minus order
+    let stockToMinus = await new OrderServices(req.params.user_id);
+    await stockToMinus.updateStockAfterCheckoutSuccessful(
+      cartItem.get('product_id'),
+      cartItem.get('quantity')
+    );
+
     // Keep track of each product's quantity purchase
     meta.push({
       product_id: cartItem.get('product_id'),

@@ -51,18 +51,6 @@ const getOrderItemById = async (orderItemId) => {
   }).fetch({ require: false });
 };
 
-const updateStockAfterCheckoutSuccessful = async (
-  productId,
-  quantityPurchased
-) => {
-  const productToUpdate = await getProductDataLayer.getProductById(productId);
-  productToUpdate.set(
-    'stock',
-    productToUpdate.get('stock') - quantityPurchased
-  );
-  productToUpdate.save();
-};
-
 module.exports = {
   getAllStatuses,
   getAllUsers,
@@ -70,5 +58,4 @@ module.exports = {
   getOrderByUser,
   getIdByOrderId,
   getOrderItemById,
-  updateStockAfterCheckoutSuccessful,
 };

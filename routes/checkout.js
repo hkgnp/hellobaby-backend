@@ -29,11 +29,6 @@ router.get('/:user_id', async (req, res) => {
     }
     lineItems.push(lineItem);
 
-    getOrderDataLayer.updateStockAfterCheckoutSuccessful(
-      cartItem.get('product_id'),
-      cartItem.get('quantity')
-    );
-
     // Keep track of each product's quantity purchase
     meta.push({
       product_id: cartItem.get('product_id'),
