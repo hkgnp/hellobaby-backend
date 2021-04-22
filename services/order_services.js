@@ -27,10 +27,6 @@ class OrderServices {
       });
       orderItem.save();
     }
-
-    // newOrderItems.set(orderItemsToAdd);
-    // await newOrderItems.save();
-    // return newOrderItems;
   };
 }
 

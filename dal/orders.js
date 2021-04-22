@@ -1,4 +1,5 @@
 const { Status, User, Order, OrderItem } = require('../models');
+const getProductDaterLayer = require('../dal/products');
 
 const getAllStatuses = async () => {
   const fetchStatuses = await Status.fetchAll();
@@ -50,6 +51,18 @@ const getOrderItemById = async (orderItemId) => {
   }).fetch({ require: false });
 };
 
+const updateStockAfterCheckoutSuccessful = async (
+  productId,
+  quantityPurchased
+) => {
+  const productToUpdate = await getProductDaterLayer.getProductById(productId);
+  productToUpdate.set(
+    'stock',
+    productToUpdate.get('stock') - quantityPurchased
+  );
+  console.log(productToUpdate);
+};
+
 module.exports = {
   getAllStatuses,
   getAllUsers,
@@ -57,4 +70,5 @@ module.exports = {
   getOrderByUser,
   getIdByOrderId,
   getOrderItemById,
+  updateStockAfterCheckoutSuccessful,
 };

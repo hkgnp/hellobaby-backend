@@ -28,11 +28,16 @@ router.get('/:user_id', async (req, res) => {
       lineItem.images = [cartItem.related('product').get('image_url')];
     }
     lineItems.push(lineItem);
+
     // Keep track of each product's quantity purchase
     meta.push({
       product_id: cartItem.get('product_id'),
       quantity: cartItem.get('quantity'),
     });
+
+    await getOrderDataLayer.updateStockAfterCheckoutSuccessful(
+      cartItem.get('product_id', cartItem.get('quantity'))
+    );
   }
 
   //2. Use Stripe to create payment
@@ -90,6 +95,7 @@ router.post(
         );
         orderToUpdate.set('status_id', 7);
         await orderToUpdate.save();
+
         return orderToUpdate;
       }
     } catch (e) {
