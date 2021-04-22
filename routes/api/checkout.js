@@ -68,8 +68,11 @@ router.get('/:user_id', async (req, res) => {
   // Maybe implemented at a later date.
   const orders = metadata.orders;
 
+  // Get today's date
+  const orderDate = new Date();
+
   let order = await new OrderServices(userId);
-  await order.addOrder(orderId, userId, statusId);
+  await order.addOrder(orderId, userId, statusId, orderDate);
 
   let idFromOrdersTable = await getOrderDataLayer.getIdByOrderId(orderId);
 

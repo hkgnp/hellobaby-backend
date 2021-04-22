@@ -6,11 +6,12 @@ class OrderServices {
     this.user_id = user_id;
   }
 
-  addOrder = async (orderId, userId, statusId) => {
+  addOrder = async (orderId, userId, statusId, orderDate) => {
     let orderItem = new Order({
       order_id: orderId,
       user_id: userId,
       status_id: statusId,
+      order_date: orderDate,
     });
     await orderItem.save();
     return orderItem;

@@ -23,6 +23,7 @@
       {{#each orders}}
       <tr>
         <td class="td-content"><a href="/orders/orderitems/{{ id }}"><span>{{ order_id }}</span></a></td>
+        <td class="td-content"><span>{{ dateFormat order_date format='DD-MM-YYYY' }}</span></td>
         <td class="td-content"><span>{{ user.username }}</span></td>
         <td class="td-content"><span>{{ user.email }}</span></td>
         <td class="td-content"><span>{{ user.contact }}</span></td>
