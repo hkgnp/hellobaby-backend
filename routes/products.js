@@ -220,6 +220,7 @@ router.get('/:product_id/update', checkIfLoggedIn, async (req, res) => {
     free_delivery,
     category_id,
     tags,
+    img_url,
     thumbnail_url,
   } = form.fields;
 

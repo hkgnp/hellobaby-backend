@@ -15,16 +15,6 @@
     <a href="/products/addcategorytags" class="text-light"><u>Click here</u></a>
     to add one.</i>
   </div>
-  <div>
-    <!-- UploadCare -->
-    <input
-      type="hidden"
-      role="uploadcare-uploader"
-      id="uploadedImage"
-      data-preview-step="true"
-      data-effects="crop,rotate,enhance,sharp,grayscale"
-    />
-  </div>
   <input
     type="submit"
     class="btn btn-primary mt-3 mb-5"
@@ -40,29 +30,26 @@
 </script>
 
 {{!-- UploadCare --}}
-<script
+{{!-- <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   charset="utf-8"
 ></script>
 <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
 <script src="https://ucarecdn.com/libs/widget-tab-effects/1.x/uploadcare.tab-effects.min.js"></script>
 <script>
-
-
   uploadedDialog = (info) => {
     const thumbnailUrl = document.querySelector('#id_thumbnail_url').value;
-    document.querySelector('#uploadedImage').parentElement.innerHTML = `
+    console.log(thumbnailUrl)
+    document.querySelector('#uploadedImage').innerHTML = `
       <div class="row border border-light mx-1 mt-3 p-3" id="uploaded_image_div">
         <img src="${thumbnailUrl}" style="display: block" id="uploaded_image" />
-        <div class="pl-3" style="vertical-align: center" id="uploaded_image_name">
-          <h4 class="mt-2 ">${info.name}</h4>
-          <h6 class="mt-0">${info.mimeType}</h6></div>
+        <div class="pl-3" style="vertical-align: center" 
         </div>
       </div>
     `;
   };
   uploadedDialog();
-</script>
+</script> --}}
 {{/block}}
 
 {{/extends}}

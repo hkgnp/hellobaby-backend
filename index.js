@@ -156,6 +156,6 @@ const orderRoutes = require('./routes/orders');
 // app.listen(process.env.PORT || portNumber, () =>
 //   console.log('Server is running on port ' + portNumber)
 // );
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 7000, () => {
   console.log('Server has started');
 });
