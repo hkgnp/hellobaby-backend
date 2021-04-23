@@ -7,7 +7,6 @@ const { Product, Category, Tag } = require('../models');
 // import the forms
 const {
   createProductForm,
-  updateProductForm,
   createProductSearchForm,
   bootstrapField,
   addCategoryAddTags,

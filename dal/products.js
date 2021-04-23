@@ -23,8 +23,8 @@ const getAllTags = async () => {
 
 const getYesNo = () => {
   return [
-    [1, 'Yes'],
-    [2, 'No'],
+    [true, 'Yes'],
+    [false, 'No'],
   ];
 };
 
