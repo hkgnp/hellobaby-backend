@@ -30,6 +30,18 @@ router.get('/search', async (req, res) => {
   res.send(allProducts);
 });
 
+router.get('/filter', async (req, res) => {
+  let filterQuery = req.query.filter;
+
+  let q = Product.collection().where('category_id', '=', filterQuery);
+
+  const allProducts = await q.fetch({
+    withRelated: ['category', 'tags'],
+  });
+
+  res.send(allProducts);
+});
+
 router.get('/:product_id', async (req, res) => {
   const productById = await getProductDataLayer.getProductById(
     req.params.product_id
