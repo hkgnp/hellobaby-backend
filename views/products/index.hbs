@@ -57,7 +57,7 @@
         <td class="td-content"><span>{{ this.specs }}</span></td>
         <td class="td-content"><span>{{ this.stock }}</span></td>
         <td><span>
-          {{#if_eq this.local "1"}}<span class="badge badge-pill badge-warning">Local</span>{{else}}Overseas{{/if_eq}} 
+          {{#if_eq this.local "1"}}<span class="badge badge-pill badge-warning">Local</span>{{else}}<span class="badge badge-pill badge-warning">Overseas</span>{{/if_eq}} 
           {{#if_eq this.organic_natural "1"}}<span class="badge badge-pill badge-warning">Org/Nat</span>{{else}}{{/if_eq}} 
           {{#if_eq this.free_delivery "1"}}<span class="badge badge-pill badge-warning">Free deliv</span>{{else}}{{/if_eq}}</span></td>
         <td class="td-content"><span>{{ this.category.category_name }}</span></td>
