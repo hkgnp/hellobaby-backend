@@ -93,7 +93,7 @@ const createProductForm = (categories, tags, yesNo) => {
       widget: widgets.select(),
       choices: yesNo,
     }),
-    organic_natural: fields.string({
+    organic_natural: fields.boolean({
       label: 'Organic / Natural',
       required: true,
       errorAfterField: true,
@@ -103,128 +103,7 @@ const createProductForm = (categories, tags, yesNo) => {
       widget: widgets.select(),
       choices: yesNo,
     }),
-    free_delivery: fields.string({
-      label: 'Free Delivery',
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-      widget: widgets.select(),
-      choices: yesNo,
-    }),
-    category_id: fields.string({
-      label: 'Category',
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-      widget: widgets.select(),
-      choices: categories,
-    }),
-    tags: fields.string({
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-      widget: widgets.multipleSelect(),
-      choices: tags,
-    }),
-    img_url: fields.string({
-      required: true,
-      errorAfterField: true,
-      widget: widgets.hidden(),
-    }),
-    thumbnail_url: fields.string({
-      required: true,
-      errorAfterField: true,
-      widget: widgets.hidden(),
-    }),
-    user_id: fields.string({
-      required: true,
-      errorAfterField: true,
-      widget: widgets.hidden(),
-    }),
-  });
-};
-
-const updateProductForm = (categories, tags, yesNo) => {
-  return forms.create({
-    date_added: fields.date({
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-      widget: widgets.date(),
-    }),
-    name: fields.string({
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-    }),
-    description: fields.string({
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-      widget: widgets.textarea(),
-    }),
-    cost: fields.string({
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-      validators: [validators.integer()],
-    }),
-    company: fields.string({
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-    }),
-    specs: fields.string({
-      label: 'Specifications',
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-    }),
-    stock: fields.string({
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-    }),
-    local: fields.boolean({
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-      widget: widgets.select(),
-      choices: yesNo,
-    }),
-    organic_natural: fields.string({
-      label: 'Organic / Natural',
-      required: true,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-      widget: widgets.select(),
-      choices: yesNo,
-    }),
-    free_delivery: fields.string({
+    free_delivery: fields.boolean({
       label: 'Free Delivery',
       required: true,
       errorAfterField: true,
@@ -273,14 +152,6 @@ const updateProductForm = (categories, tags, yesNo) => {
 
 const createProductSearchForm = (categories, tags) => {
   return forms.create({
-    // date: fields.date({
-    //   required: false,
-    //   errorAfterField: true,
-    //   cssClasses: {
-    //     label: ['form-label'],
-    //   },
-    //   widget: widgets.date(),
-    // }),
     name: fields.string({
       required: false,
       errorAfterField: true,
@@ -312,13 +183,6 @@ const createProductSearchForm = (categories, tags) => {
       validators: [validators.integer()],
     }),
     company: fields.string({
-      required: false,
-      errorAfterField: true,
-      cssClasses: {
-        label: ['form-label'],
-      },
-    }),
-    description: fields.string({
       required: false,
       errorAfterField: true,
       cssClasses: {
@@ -475,7 +339,6 @@ const addCategoryAddTags = () => {
 module.exports = {
   bootstrapField,
   createProductForm,
-  updateProductForm,
   createProductSearchForm,
   createUserForm,
   loginUserForm,
