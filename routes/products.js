@@ -7,6 +7,7 @@ const { Product, Category, Tag } = require('../models');
 // import the forms
 const {
   createProductForm,
+  updateProductForm,
   createProductSearchForm,
   bootstrapField,
   addCategoryAddTags,
@@ -205,7 +206,7 @@ router.get('/:product_id/update', checkIfLoggedIn, async (req, res) => {
 
   const yesNo = await getProductDataLayer.getYesNo();
 
-  const form = createProductForm(allCategories, allTags, yesNo);
+  const form = updateProductForm(allCategories, allTags, yesNo);
   const {
     date_added,
     name,
@@ -257,7 +258,7 @@ router.post('/:product_id/update', async (req, res) => {
 
   // Option 2
   const selectedTags = productToEdit.toJSON().tags.map((t) => t.id);
-  const productForm = createProductForm();
+  const productForm = updateProductForm();
 
   productForm.handle(req, {
     success: async (form) => {
