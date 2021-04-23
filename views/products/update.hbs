@@ -47,18 +47,10 @@
 <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
 <script src="https://ucarecdn.com/libs/widget-tab-effects/1.x/uploadcare.tab-effects.min.js"></script>
 <script>
-  UPLOADCARE_PUBLIC_KEY = '{{ uploadcarePublicKey }}';
-  uploadcare.registerTab('preview', uploadcareTabEffects);
-  const widget = uploadcare.Widget('[role=uploadcare-uploader]');
 
-  widget.onUploadComplete(async (info) => {
-    await uploadedDialog(info);
-  });
 
   uploadedDialog = (info) => {
-    const thumbnailUrl = `${info.cdnUrl}/-/preview/-/scale_crop/200x200/`;
-    document.querySelector('#id_img_url').value = info.cdnUrl;
-    document.querySelector('#id_thumbnail_url').value = thumbnailUrl;
+    const thumbnailUrl = document.querySelector('#id_thumbnail_url').value;
     document.querySelector('#uploadedImage').parentElement.innerHTML = `
       <div class="row border border-light mx-1 mt-3 p-3" id="uploaded_image_div">
         <img src="${thumbnailUrl}" style="display: block" id="uploaded_image" />
@@ -69,6 +61,7 @@
       </div>
     `;
   };
+  uploadedDialog();
 </script>
 {{/block}}
 

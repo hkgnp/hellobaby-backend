@@ -219,6 +219,7 @@ router.get('/:product_id/update', checkIfLoggedIn, async (req, res) => {
     free_delivery,
     category_id,
     tags,
+    thumbnail_url,
   } = form.fields;
 
   date_added.value = productToEdit.get('date_added');
@@ -232,6 +233,8 @@ router.get('/:product_id/update', checkIfLoggedIn, async (req, res) => {
   organic_natural.value = productToEdit.get('organic_natural');
   free_delivery.value = productToEdit.get('free_delivery');
   category_id.value = productToEdit.get('category_id');
+  thumbnail_url.value = productToEdit.get('thumbnail_url');
+  img_url.value = productToEdit.get('img_url');
 
   // Set selected tags to the form to be displayed
   tags.value = selectedTags;
