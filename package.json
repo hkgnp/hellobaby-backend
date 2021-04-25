@@ -1,5 +1,5 @@
 {
-  "name": "advanced-express-labs",
+  "name": "hellobaby-backend",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -30,5 +30,8 @@
   },
   "scripts": {
     "start": "node index.js"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
